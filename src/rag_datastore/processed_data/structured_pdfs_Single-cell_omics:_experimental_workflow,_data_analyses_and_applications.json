@@ -1,0 +1,165 @@
+{
+    "title": "Single-cell omics: experimental workflow, data analyses and applications",
+    "abstract": "This review comprehensively summarizes recent advances in single-cell omics technologies, focusing on methodology. It aims to guide researchers in method selection for single-cell sequencing and related data analysis, covering single-cell transcriptome, genome, epigenome, proteome, and metabolome technologies, as well as multimodal approaches and spatial transcriptomics.",
+    "sections": [
+        {
+            "section_number": null,
+            "heading": "Introduction",
+            "content": "Cells are the fundamental units of biological systems and exhibit unique development trajectories and molecular features. Our exploration of how the genomes orchestrate the formation and maintenance of each cell, and control the cellular phenotypes of various organismsis, is both captivating and intricate. Since the inception of the first single-cell RNA technology, technologies related to single-cell sequencing have experienced rapid advancements in recent years. These technologies have expanded horizontally to include single-cell genome, epigenome, proteome, and metabolome, while vertically, they have progressed to integrate multiple omics data and incorporate additional information such as spatial scRNA-seq and CRISPR screening. Single-cell omics represent a groundbreaking advancement in the biomedical field, offering profound insights into the understanding of complex diseases, including cancers. Here, we comprehensively summarize recent advances in single-cell omics technologies, with a specific focus on the methodology section. This overview aims to guide researchers in selecting appropriate methods for single-cell sequencing and related data analysis. single-cell sequencing || genome || epigenome || proteomics || metabolomics || multimodal || spatial transcriptomics || CRISPR screening",
+            "keywords": [
+                "single-cell omics",
+                "single-cell sequencing",
+                "transcriptome",
+                "genome",
+                "epigenome",
+                "proteome",
+                "metabolome",
+                "multimodal",
+                "spatial transcriptomics",
+                "CRISPR screening"
+            ]
+        },
+        {
+            "section_number": 1,
+            "heading": "Single-cell transcriptome sequencing",
+            "content": "The advent of single-cell RNA sequencing (scRNA-seq) technology is a state-of-the-art technique for analyzing cellular complexity and heterogeneity, providing a wealth of information across diverse scientific domains. The high resolution of this technology makes it possible to discuss novel biological issues by offering a unique opportunity to explore the transcriptional landscape of single cells. This cutting-edge method, since the first scRNA-seq protocol was introduced in 2009, has seen substantial advancements in method development ( Figure 2 ). These approaches incorporate essential improvements and modifications in singlecell isolation, capture, reverse transcription, cDNA amplification, library preparation, sequencing, and data analysis to enhance throughput and automation while decreasing time and costs. This chapter presents a comprehensive overview of single-cell transcriptome sequencing technologies, bioinformatics analysis methods, and their uses in medical and biological sciences research to help researchers make informed choices.",
+            "keywords": [
+                "scRNA-seq",
+                "transcriptome sequencing",
+                "single-cell isolation",
+                "reverse transcription",
+                "cDNA amplification",
+                "sequencing library",
+                "bioinformatics analysis"
+            ]
+        },
+        {
+            "section_number": 2,
+            "heading": "Single-cell whole-genome sequencing",
+            "content": "The microscopization of life science research proves that cell population-based methods may not be suitable for certain areas of study, such as tumor heterogeneity and early embryonic development. In response, the introduction of single-cell transcriptome sequencing technology in 2009 marked a significant advancement ( Tang et al., 2009 ). Building on this, Navin et al. (2011) introduced single-cell whole genome sequencing technology (scWGS) in 2011 by combining whole genome amplification (WGA) with high-throughput sequencing. This innovative approach addresses challenges related to obtaining information about heterogeneity between different cells in tissue samples and enables the study of individual cells when conventional sequencing might be impractical due to small sample sizes. By sequencing DNA at the single-cell level, scWGS provides a new dimension for studying the behavior and mechanisms of individual cells. Applications of scWGS have expanded across various research fields, including neuroscience, germline evolution, organogenesis, oncology, clinical diagnosis, immunology, microbiology, embryo development, and prenatal genetic diagnosis. Recognizing its potential, scWGS was highlighted as one of the most anticipated technologies in 2013 by the journal Nature Methods . The development of scWGS has indeed opened up avenues for researchers to delve into inter-cell heterogeneity at the single-cell level and explore various aspects such as single-nucleotide variants, short insertions or deletions, and copy number variants. This technology has proven particularly valuable for studying the genomes of rare cells that hold biological or clinical significance, including circulating tumor cells and cells used in third-generation in vitro fertilization preimplantation genetic diagnosis/screening. The scWGS process typically involves three main steps: single-cell isolation, single-cell whole genome amplification (scWGA), and the sequencing and analysis of the amplified products. The critical challenge in this process is to amplify the genome of a single cell effectively, obtaining sufficient material for downstream analyses while minimizing artifacts such as amplification bias, genome loss, mutations, and chimeras. Addressing these challenges is essential to ensure the accuracy and reliability of the genetic information obtained from single cells.",
+            "keywords": [
+                "scWGS",
+                "single-cell whole genome sequencing",
+                "whole genome amplification",
+                "WGA",
+                "genome",
+                "heterogeneity",
+                "single-nucleotide variants",
+                "copy number variants"
+            ]
+        },
+        {
+            "section_number": 3,
+            "heading": "Single-cell epigenome sequencing",
+            "content": "The epigenome of a cell regulates its cell type-specific gene expression. Understanding epigenetic variations is crucial to reveal transcriptional mechanisms that determine tissue and cellular heterogeneities during development, disease formation, and progression. The epigenome involves a variety of precisely regulated epigenetic features, such as nucleic acid methylation, chromatin states, nucleosome positions, histone modifications (HM), TF bindings, and high-order chromatin structures. These features interact with one another to influence nearby genome activity without changing DNA sequences, which further controls cellular activities and results in heritable phenotypes. Single-cell epigenome sequencing techniques, as well as corresponding computational analysis methods, have been developed and widely used in many research areas, especially in cancer immunology, embryonic development, and neurobiology. In this chapter, we survey the recent advances in sequencing techniques and computational tools developed for single-cell epigenome data analysis.",
+            "keywords": [
+                "single-cell epigenome sequencing",
+                "epigenome",
+                "nucleic acid methylation",
+                "chromatin states",
+                "nucleosome positions",
+                "histone modifications",
+                "transcription factor bindings",
+                "chromatin structures"
+            ]
+        },
+        {
+            "section_number": 4,
+            "heading": "Single-cell proteomics technology based on mass spectrometry",
+            "content": "Although proteome performed in bulk samples has matured and been widespreadly applied in scientific research and clinical medicine, numerous new challenges have arisen when the initial sample size is slashed to hundreds of cells or even one cell. Since the total protein in one somatic cell is only about $100{-}200~mathrm{pg}$ (Wi \u015bniewski et al., 2014 ), any loss can have an immeasurable impact, and also put more stringent requirements on sensitivity and accuracy of detection methods. Based on the detection principles, today, single-cell proteomic (SCP) methods can be classified into the following categories: (i) antibody-based assays, such as cytometry by time of flight (CyTOF) ( Bandura et al., 2009 ;Bendall et al., 2011 ), single-cell western blotting ( Hughes et al., 2014b ), microengraving ( Han et al., 2010 ;Love et al., 2006 ;Schubert et al., 2016 ), (ii) PCRsequencing based assays, such as proseek multiplex ( Assarsson et al., 2014 ), CITE-seq ( Stoeckius et al., 2017 ), REAP-seq ( Peterson et al., 2017 ), (iii) mass spectrometry (MS) based assays, such as nanoPOTS (nanodroplet processing in one pot for trace samples) (Zhu et al., 2018d ;Zhu et al., 2018e ), SCoPE2 ( Specht et al., 2021 ). The antibody-based and sequencing-based assays were developed earlier and have made unignorable contributions, which have been well reviewed before ( Labib and Kelley, 2020 ;Levy and Slavov, 2018 ;Liu et al., 2020a ;Xie and Ding, 2022 ). However, the former was limited by the specificity and the availability of antibodies, while the latter did not directly detect proteins, and both assays were limited in the number of proteins that could be analyzed at a time. Mass spectrometry has been the mainstream analysis tool in bulk-size proteomics due to its advantages of both high accuracy and high throughput. More importantly, unlike the hypothesis-oriented antibody-based methods, MS-based analysis method is discovery-oriented which can play a unique role in biological research. With the progress of mass spectrometry and the innovation of preparation process in recent years, single-cell proteomics based on MS has shown a blowout.",
+            "keywords": [
+                "single-cell proteomics",
+                "mass spectrometry",
+                "MS",
+                "CyTOF",
+                "CITE-seq",
+                "REAP-seq",
+                "nanoPOTS",
+                "SCoPE2"
+            ]
+        },
+        {
+            "section_number": 5,
+            "heading": "Single-cell metabolomics technology",
+            "content": "Most human cells are approximately 5 to $25~{upmumathrm{m}}$ in diameter with as low as sub-pl intracellular volumes and highly dynamic metabolite concentrations ranging from a few copies to more than 100,000 ( Zenobi, 2013 ). Compared with other omics, the genome is approximately static, the proteome and transcriptome change in minutes or hours, whereas the metabolome changes on a time scale of milliseconds to seconds ( Weibel et al., 1974 ). For the present objects, the metabolome includes small molecules (usually lesser than $1.5,mathrm{kD}$ in size, but excluding nucleic acids, minerals, and salts), lipids, peptides, drugs, and their xenobiotics (Minakshi et al., 2019 ;Wishart et al., 2007 ). All of them are characterized by structural diversity, which makes discrimination difficult. And typically, a single cell can be detected tens to hundreds of analytes but only ${sim}10%$ can be assigned using highresolution MS and database search methods ( Yin et al., 2018 ). Thus, extracting small volume content, snapshotting the quick turnover of metabolites, discriminating the molecular species diversity, improving detection sensitivity and selectivity, and boosting detection limits, all are inevitable challenges in singlecell metabolomics (SCM) research. In the process of SCM research, a large number of research technologies, analytical platforms, and applications have emerged. Here, we review the development of SCM in the last ten years, including the classes of research techniques, mainly analytical workflow, applications, and possible breakthroughs.",
+            "keywords": [
+                "single-cell metabolomics",
+                "SCM",
+                "metabolome",
+                "mass spectrometry",
+                "cell sampling",
+                "data analysis",
+                "desorption ionization",
+                "content extraction",
+                "sorting and ionization"
+            ]
+        },
+        {
+            "section_number": 6,
+            "heading": "Single-cell multimodal sequencing technology",
+            "content": "Multiomics analysis with bulk sequencing has been widely applied to provide a comprehensive understanding of biological processes like disease development ( Hoadley et al., 2018 ;Hutter and Zenklusen, 2018 ;Liu et al., 2018a ;Malta et al., 2018 ) and tissue development ( Consortium et al., 2020a ;Consortium et al., 2020b ;He et al., 2020b ;Sethi et al., 2020 ) through the atlas integration of multi-omics datasets like genomic, transcriptomic, epigenomic and proteomic data in multiple species. At the singlecell scale, the applications of unpaired single-cell multi-omic sequencing technologies, which use different cells from the same or similar source for different single-cell experiments, have been applied to discover new cell subpopulations and new biological mechanisms by connecting the single-cell transcriptome for cell type identification to different modalities of other similar cells (Argelaguet et al., 2019 ;Hao et al., 2021b ). Recent advances in single-cell sequencing technologies have further enabled the measurement of multiple omics like DNA, mRNA, epigenomic, and protein in the same cell at single-cell resolution, providing the paired and high-resolution discovery of single-cell status. Also, to integrate the multi-omic single-cell datasets, several bioinformatic algorithms and methods have been developed to help pre-process, integrate, and interpret the emerging multiomic single-cell datasets. In this chapter, we first review the (i) recent development of single-cell joint profiling technique capturing multiple views of cell molecules from the same cell, mainly focused on the transcriptome-focused multimodal technologies ( Table 3 ). Next, we review the (ii) recent advances in multi-modal integration analysis methods and tools, including the different categories of applications and algorithms for both unpaired multimodal datasets and paired multimodal datasets. Also, we summarize the performance of popular single multi-omic data integration methods from recent single-cell multi-modal integration benchmark studies.",
+            "keywords": [
+                "single-cell multiomics",
+                "transcriptome",
+                "proteome",
+                "epigenome",
+                "genomic DNA",
+                "multi-modal data integration",
+                "paired integration tools",
+                "unpaired integration tools"
+            ]
+        },
+        {
+            "section_number": 7,
+            "heading": "Single-cell spatial transcriptomics technology",
+            "content": "In the preceding sections, we systematically reviewed the recent advances in single-cell omics. Although these single-cell sequencing technologies allow the investigation of cellular heterogeneity at an unprecedented resolution, they are far from adequate to get a full understanding of the intricate workings of multicellular organisms. Many studies emphasize that the state of one cell is not only regulated by the intracellular regulatory network but also interfered by the extracellular signals from the environment (Dries et al., 2021a ;Junttila and de Sauvage, 2013 ;Lin and Hankenson, 2011 ). Both the dissociation of tissues and the isolation of single cells during experimental procedures cause the loss of critical spatial information, including cell positions and their mutual proximities. Spatial transcriptomics (ST) has addressed this limitation, enabling the measurement of gene expression with spatial information preserved. In this section, we will introduce spatial transcriptomics technologies, discuss computational methods for spatial data analysis, and provide a review of their applications in various biological systems. Additionally, we will also delve into the current progress in techniques of spatial multi-omics.",
+            "keywords": [
+                "spatial transcriptomics",
+                "ST",
+                "gene expression",
+                "tissue organization",
+                "cell heterogeneity",
+                "spatial data analysis",
+                "microdissection",
+                "barcoding",
+                "imaging"
+            ]
+        },
+        {
+            "section_number": 8,
+            "heading": "Single-cell CRISPR screening technology",
+            "content": "The clustered regularly interspaced short palindromic repeats (CRISPR)/Cas9 system is a revolutionary approach to edit the mammalian genome ( Cong et al., 2013 ;Mali et al., 2013 ). With the development of lentiviral delivery methods, CRISPR screening technology emerged and has enabled genome-wide knockout in a cost-effective manner ( Koike-Yusa et al., 2014 ;Shalem et al., 2014 ;Wang et al., 2014a ). However, CRISPR screening can only analyze genes with very distinct phenotypes, such as those that significantly affect cell growth or those that can be detected directly with antibodies or fluorescent proteins. In 2016, a new technique, called single-cell CRISPR screening (scCRISPR-seq), was developed that coupled CRISPR perturbations and single-cell sequencing to enable pooled genetic screens at large-scale single-cell resolution ( Adamson et al., 2016 ;Dixit et al., 2016 ;Jaitin et al., 2016 ). The key technical innovation of scCRISPR-seq is the creative design of the lentiviral vector, called the Perturb-seq vector, to allow the identification of sgRNA in each cell from sequencing ( Figure 16 A). scCRISPR-seq can facilitate high-throughput functional dissection of complex regulatory mechanisms and heterogeneous cell populations. In this chapter, we will comprehensively review scCRISPR-seq in four distinct parts. Firstly, we will introduce representative technologies within each category of scCRISPR-seq. Secondly, we will delve into the primary tools that have been specifically developed for the analysis of scCRISPR-seq data. Thirdly, we will explore notable applications of scCRISPR-seq. Finally, we will draw conclusions and engage in a discussion of the limitations and future trends associated with scCRISPR-seq.",
+            "keywords": [
+                "single-cell CRISPR screening",
+                "scCRISPR-seq",
+                "CRISPR/Cas9",
+                "Perturb-seq vector",
+                "genome editing",
+                "lentiviral delivery",
+                "sgRNA",
+                "data analysis tools"
+            ]
+        }
+    ],
+    "references": [
+        "Adamson et al., 2016",
+        "Dixit et al., 2016",
+        "Jaitin et al., 2016",
+        "Cong et al., 2013",
+        "Mali et al., 2013",
+        "Koike-Yusa et al., 2014",
+        "Shalem et al., 2014",
+        "Wang et al., 2014a",
+        "Tang et al., 2009",
+        "Navin et al., 2011",
+        "Wu et al., 2017b"
+    ],
+    "metadata": {
+        "source": "pdfs",
+        "url": "https://link.springer.com/content/pdf/10.1007/s11427-023-2561-0.pdf",
+        "language": "en",
+        "processed_date": "2025-03-14",
+        "scrape_id": "90dca985-61b8-438d-8cb0-7f159b0c8c69",
+        "statusCode": 200
+    }
+}

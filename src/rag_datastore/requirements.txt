@@ -1,0 +1,7 @@
+python-dotenv==1.0.1
+langchain-core-0.3.34
+langchain==0.3.18
+langchain-openai-0.3.4
+#langsmith==0.2.11
+chromadb==0.6.3
+#pinecone-client==5.0.1

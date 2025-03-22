@@ -1,0 +1,241 @@
+{
+    "title": "DNA methylation atlas of the mouse brain at single-cell resolution",
+    "abstract": "The regulatory DNA landscape underlying the extensive heterogeneity of mammalian brain cells is poorly understood. This study presents a comprehensive assessment of the epigenomes of mouse brain cell types by applying single-nucleus DNA methylation sequencing to profile 103,982 nuclei from 45 regions of the mouse cortex, hippocampus, striatum, pallidum, and olfactory areas. The atlas identifies 161 cell clusters with distinct spatial locations and projection targets, constructs taxonomies of these epigenetic types, annotates them with signature genes, regulatory elements, and transcription factors, and integrates multi-omic datasets to establish the epigenetic basis for neuronal diversity and spatial organization throughout the mouse cerebrum.",
+    "sections": [
+        {
+            "section_number": 1,
+            "heading": "Main",
+            "content": "Epigenomic dynamics are associated with cell differentiation and maturation in the mammalian brain and have an essential role in regulating neuronal functions and animal behaviour 5 , 6 . Cytosine DNA methylation (5mC) is a stable covalent modification that persists in post-mitotic cells throughout their lifetime and is critical for proper gene regulation 6 . In mammalian genomes, 5mC occurs predominantly at CpG sites (mCG), showing dynamic patterns at regulatory elements with tissue and cell-type specificity 1 , 6 , 7 , 8 , modulating binding affinity of transcription factors 9 and controlling gene transcription 5 . Non-CpG cytosines are also abundantly methylated (mCH, H denotes A, C, or T)\u2014uniquely in neurons\u2014in the mouse and human brain 6 , 10 , which can directly affect DNA binding of methyl CpG binding protein 2 (MeCP2) 11 , 12 , 13 , causing Rett syndrome 14 . Levels of mCH at gene bodies are anti-correlated with gene expression and show high heterogeneity across neuronal cell types 1 , 7 . A deeper understanding of epigenomic diversity in the mouse brain provides a complementary approach to transcriptome-based profiling methods for identifying brain cell types and allows genome-wide prediction of the regulatory elements and transcriptional networks underlying this diversity. Previous studies have demonstrated the utility of studying brain cell types and regulatory diversity using single-nucleus methylome sequencing (snmC-seq) 1 . This study uses snmC-seq2 2 to perform thorough methylome profiling with detailed spatial dissection in the adult postnatal day 56 (P56) male mouse brain. In Li et al. 3 , the same tissue samples were profiled using single-nucleus assay for transposase-accessible chromatin using sequencing (snATAC-seq) to identify genome-wide accessible chromatin 15 , providing complementary epigenomic information to aid in cell-type-specific regulatory genome annotation. Moreover, to further study cis -regulatory elements and their potential target genes across the genome, we applied single-nucleus methylation and chromosome conformation capture sequencing (sn-m3C-seq) 4 to profile the methylome and chromatin conformation in the same cells. These epigenomic datasets provide a detailed and comprehensive census of the diversity of cell types across mouse brain regions, allowing identification of cell-type-specific regulatory elements and their candidate target genes and upstream transcription factors. Here we construct a single-cell base-resolution DNA methylation dataset containing 103,982 methylomes from 45 dissected brain regions and use an iterative analysis framework to identify 161 predicted mouse brain subtypes. Comparing subtype-level methylomes enables us to identify 3.9 million genomic regions showing cell-type-specific mCG variation, covering approximately 50% (1,240 Mb) of the mouse genome. We show that differentially methylated transcription factor genes and binding motifs can be associated with subtype taxonomy branches, allowing the prediction of cell-type gene regulatory programs specific for each developmental lineage. Integration of these data with cell clusters identified on the basis of chromatin accessibility validates most methylome-derived subtypes, enabling the prediction of 1.6 million enhancer-like genomic regions. We identify cis -regulatory interactions between enhancers and genes using computational prediction and single-cell chromatin conformation profiling (in the hippocampus (HIP)). We also identify spatial methylation gradients in cortical excitatory neurons and dentate gyrus granule cells and associated transcription factors and motifs. We apply an artificial neural network (ANN) model to precisely predict single-neuron cell-type identity and brain area spatial location using its methylome profile as input and develop the brain cell methylation viewer ( http://neomorph.salk.edu/omb ) as a portal for querying and visualization of cell- and cluster-level methylation data.",
+            "keywords": [
+                "epigenomics",
+                "DNA methylation",
+                "single-cell sequencing",
+                "mouse brain",
+                "neuronal diversity",
+                "regulatory elements",
+                "transcription factors",
+                "artificial neural network",
+                "spatial organization"
+            ]
+        },
+        {
+            "section_number": 2,
+            "heading": "Single-cell DNA methylome atlas",
+            "content": "We used snmC-seq2 2 to profile genome-wide 5mC at single-cell resolution (Fig. 1a ) across the cortex, HIP, striatum and pallidum (or cerebral nuclei, CNU), and olfactory areas (OLF) (Fig. 1b\u2013e ) using adult male C57BL/6 mice 16 . In total, we analysed 45 dissected regions in two replicates (Extended Data Fig. 1 , Supplementary Table 2 ). Fluorescence-activated nuclei sorting (FANS) of antibody-labelled nuclei was applied to capture NeuN-positive neurons (NeuN+, 92% of neurons), while also sampling a smaller number of NeuN-negative (NeuN\u2013, 8% of neurons) non-neuronal cells (Fig. 1a ). In total, we profiled the DNA methylomes of 103,982 single nuclei, yielding, on average, 1.5 million stringently filtered reads per cell (1.50 \u00d7 106 \u00b1 0.58 \u00d7 106, mean \u00b1 s.d.) covering 6.2 \u00b1 2.6% of the cytosines in the mouse genome in each cell. These enabled reliable quantification of the DNA methylation fraction for 25,905 \u00b1 1,090 (95 \u00b1 4%) 100-kb bins and 44,944 \u00b1 4,438 (81 \u00b1 8%) gene bodies (Extended Data Fig. 2a ). The global methylation levels range from 0.2% to 7.6% in non-CpG sites and 61.6% to 88.8% in CpG sites (Extended Data Fig. 2b, c ). On the basis of the mCH and mCG profiles in 100-kb bins throughout the genome, we performed a three-level iterative clustering analysis to categorize the epigenomic cell populations (Fig. 1f, g ). After quality control and preprocessing (Methods), in the first level (cell class), we clustered 103,982 cells as 67,472 (65%) excitatory neurons, 28,343 (27%) inhibitory neurons, and 8,167 (8%) non-neurons (Supplementary Table 3 ). The second round of iterative analysis of each cell class identified 41 cell major types in total (cluster size range 95\u201311,919), and the third round separated these major types further into 161 cell subtypes (cluster size range 12\u20136,551).",
+            "keywords": [
+                "snmC-seq2",
+                "DNA methylomes",
+                "single nuclei",
+                "FANS",
+                "clustering analysis",
+                "excitatory neurons",
+                "inhibitory neurons",
+                "non-neurons"
+            ]
+        },
+        {
+            "section_number": 3,
+            "heading": "Consensus epigenomic profiles",
+            "content": "Integrating single-cell datasets collected using different molecular profiling modalities can help to establish a consensus cell-type atlas 20 , 21 . By integrating the methylome data with the chromatin accessibility data profiled using snATAC-seq on the same brain samples from a parallel study 3 , the two modalities validated each other at the subtype level (Fig. 2c, d , Extended Data Fig. 5a\u2013f , Supplementary Table 10 ). We then calculated overlap scores between the original methylation subtypes (m-types) and the chromatin accessibility subtypes (a-types), which further quantified the matching of subtypes between the two modalities (Fig. 2e , Extended Data Fig. 5e , Methods). Moreover, the mCG DMRs (see below) highly overlap with open chromatin peaks in the hippocampal subtypes (Fig. 2f ). Their mCG fractions and chromatin accessibility levels show similar cell-type-specificity across hippocampal subtypes, confirming the correct match of cell-type identities (Extended Data Fig. 5f ).",
+            "keywords": [
+                "single-cell datasets",
+                "molecular profiling",
+                "cell-type atlas",
+                "methylome",
+                "chromatin accessibility",
+                "snATAC-seq",
+                "overlap scores",
+                "hippocampal subtypes"
+            ]
+        },
+        {
+            "section_number": 4,
+            "heading": "Projection specificity of ET-L5 neurons",
+            "content": "To further infer the projection targets of cell subtypes, we integrated our extra-telencephalic (ET) L5 neurons with epi-retro-seq data 22 . Epi-retro-seq uses retrograde viral labelling to select neurons projecting to specific brain regions, followed by methylome analysis of their epigenetic subtypes. Cells from the same brain region of the two datasets are colocalized on t -distributed stochastic neighbour embedding ( t -SNE) analysis, validating the subtypes\u2019 spatial distribution (Fig. 2g\u2013i , Extended Data Fig. 5g\u2013i ). The overlap scores between unbiased (snmC-seq2) and targeted (epi-retro-seq) profiling experiments (Extended Data Fig. 5j ) indicate that some subtypes identified from the same cortical area show different projection specificity. For example, SSp and MOp neurons were mainly enriched in three subtypes marked by Kcnh1 , Tmtc2 and Nectin1 , respectively. However, neurons projecting to the medulla in the MOp and SSp only integrate with the subtype marked with Kcnh1 (Fig. 2j ), suggesting that the subtypes identified in unbiased methylome profiling have distinct projection specificities.",
+            "keywords": [
+                "projection targets",
+                "extra-telencephalic (ET) L5 neurons",
+                "epi-retro-seq",
+                "retrograde viral labelling",
+                "methylome analysis",
+                "epigenetic subtypes",
+                "t -distributed stochastic neighbour embedding (t -SNE)",
+                "projection specificities"
+            ]
+        },
+        {
+            "section_number": 5,
+            "heading": "Regulatory taxonomy of neuronal subtypes",
+            "content": "Having developed a consensus map of cell types based on their DNA methylomes, we identified 16,451 differentially CH-methylated genes (CH-DMGs) and 3.9 million CG-differentially methylated regions (CG-DMRs, 624 \u00b1 176 base pairs (bp) mean \u00b1 s.d.) between the subtypes (Extended Data Fig. 6 , Methods, Supplementary Note 2 ). snmC-seq2 captures both cell-type-specific gene expression and predicted regulatory events 1 , 2 . Specifically, both gene body mCH and mCG negatively correlate with gene expression in neurons, with mCH showing a stronger correlation than mCG 1 , 6 , 7 , 13 . CG-DMRs provide predictions about cell-type-specific regulatory elements and transcription factors whose motifs enriched in these CG-DMRs predict the crucial regulators of the cell type 1 , 7 , 8 . To further explore the gene regulatory relationship between neuronal subtypes, we constructed taxonomy trees for excitatory and inhibitory subtypes, based on gene body mCH of CH-DMGs (Extended Data Fig. 7a, b , Methods). The dendrogram structures represent the similarities between these discrete subtypes and may reflect the developmental history of neuronal type specification 19 , 23 .",
+            "keywords": [
+                "DNA methylomes",
+                "differentially CH-methylated genes (CH-DMGs)",
+                "CG-differentially methylated regions (CG-DMRs)",
+                "snmC-seq2",
+                "gene expression",
+                "regulatory elements",
+                "transcription factors",
+                "taxonomy trees",
+                "excitatory subtypes",
+                "inhibitory subtypes"
+            ]
+        },
+        {
+            "section_number": 6,
+            "heading": "Enhancer\u2013gene Interactions",
+            "content": "To systematically identify enhancer-like regions in specific cell types, we predicted enhancer-DMRs (eDMR) by integrating matched DNA methylome and chromatin accessibility profiles 3 of 161 subtypes (Fig. 4a , Methods). We identified 1,612,198 eDMR (34% of CG-DMRs), 73% of which overlapped with separately identified snATAC-seq peaks (Fig. 4b ). Fetal-enhancer DMRs (feDMR) (that is, eDMRs between development time points) of forebrain bulk tissues 8 show high (88%) overlap with eDMRs. Surprisingly, the eDMRs also cover 74% of the feDMRs from other fetal tissues 8 , indicating extensive reuse of enhancer-like regulatory elements across mammalian tissue types (Fig. 4b ). Next, we examined the relationship between the cell-type-signature genes and their potential regulatory elements. We calculated the partial correlation between all DMG\u2013DMR pairs within 1 Mb distance using methylation levels across 145 neuronal subtypes (Methods). We identified a total of 1,038,853 (64%) eDMRs that correlated with at least one gene (correlation >0.3 with empirical P <0.005, two-sided permutation test, Extended Data Fig. 8a ).",
+            "keywords": [
+                "enhancer-like regions",
+                "enhancer-DMRs (eDMR)",
+                "DNA methylome",
+                "chromatin accessibility profiles",
+                "snATAC-seq peaks",
+                "fetal-enhancer DMRs (feDMR)",
+                "regulatory elements"
+            ]
+        },
+        {
+            "section_number": 7,
+            "heading": "3D genome structure of hippocampus",
+            "content": "Distal enhancers typically regulate gene expression through physical interaction with promoters 28 . Therefore, to examine whether physical chromatin contacts support our correlation-based predictions of enhancer\u2013gene associations, we generated sn-m3C-seq 4 data for 5,142 single nuclei from the HIP (152,000 contacts per cell on average). We assigned these cells, on the basis of the sn-m3C-seq data, to eight major cell types based on integration with the snmC-seq2 HIP data. In total, 19,151 chromosome loops were identified in at least one of the cell types at 25-kb resolution (range from 1,173 to 12,614 chromosome loops per cell type). Using DG and CA1 as examples, a notably higher correlation was observed between enhancers and genes at loop anchors than between random enhancer\u2013gene pairs (Extended Data Fig. 8h ). Reciprocally, the enhancer\u2013gene pairs showing stronger correlation with methylation were more likely to be found linked by chromosome loops or within the same looping region (Extended Data Fig. 8i ).",
+            "keywords": [
+                "3D genome structure",
+                "hippocampus",
+                "chromatin contacts",
+                "enhancer-gene associations",
+                "sn-m3C-seq",
+                "chromosome loops",
+                "DG",
+                "CA1"
+            ]
+        },
+        {
+            "section_number": 8,
+            "heading": "mC gradients in IT neurons",
+            "content": "Cortical excitatory IT neurons are classified into major types corresponding to their laminar layers: L2/3, L4, L5 and L6 (Fig. 5a ). In agreement with the anti-correlation between transcript levels and DNA methylation, we found hypomethylation in IT neurons of the layer marker genes 19 (Extended Data Fig. 9a ). Furthermore, UMAP embedding (Fig. 5a ) reveals a continuous gradient of IT neurons resembling the medial\u2013lateral distribution of the cortical regions (Fig. 5b ), strongly suggesting that the arealization information is well preserved in the DNA methylome. To systematically explore the spatial gradient of DNA methylation, we merged the cells into spatial groups on the basis of their cortical layer and region and generated a taxonomy between them (Methods). The taxonomy split the cells into four layer groups, followed by cortical-region separation within each layer (Extended Data Fig. 9c ), providing a clear structure for investigating layer-related or region-related methylation variation.",
+            "keywords": [
+                "mC gradients",
+                "IT neurons",
+                "cortical excitatory neurons",
+                "laminar layers",
+                "DNA methylation",
+                "hypomethylation",
+                "UMAP embedding",
+                "arealization information"
+            ]
+        },
+        {
+            "section_number": 9,
+            "heading": "mC gradients in DG granule cells",
+            "content": "Global methylation gradients are observed within large cell types. For example, DG granule cells were continuously distributed in the UMAP embedding from low to high global mCH and mCG (Fig. 5d , global mCH fraction 0.5\u20131.9%, mCG fraction 69\u201379%). This gradient correlated with the anterior\u2013posterior position of brain sections. Granule cells from the most posterior DG regions had higher global methylation than cells from anterior regions (Fig. 5d ). mCH accumulates throughout the genome during postnatal brain development 6 , 8 . We reasoned that DG granule cells, which are continuously replenished by ongoing neurogenesis throughout the lifespan, may accumulate mCH during their post-mitotic maturation. If so, global mCH should correlate with the age and maturity of granule cells. To investigate this, we divided DG granule cells into four groups on the basis of their global mCH levels and investigated regions of differential methylation between the groups.",
+            "keywords": [
+                "mC gradients",
+                "DG granule cells",
+                "global methylation",
+                "UMAP embedding",
+                "neurogenesis",
+                "post-mitotic maturation",
+                "differential methylation"
+            ]
+        },
+        {
+            "section_number": 10,
+            "heading": "Cell type and spatial prediction model",
+            "content": "To further quantify the spatial and cell-type information encoded in a single cell\u2019s DNA methylome, we built a multi-task deep ANN using cell-level methylome profiles from this study (Fig. 6a ). Specifically, mCH levels of 100-kb bins were used to train and test the network with fivefold cross-validation (Method). The ANN predicted neuronal subtype identity and spatial location simultaneously for each testing cell with 95% and 89% accuracy, respectively (Fig. 6b\u2013d ). Notably, the location prediction accuracy of the ANN was higher than using only the spatial distribution information of subtypes (overall increased by 38%, Extended Data Fig. 11c ), suggesting that spatial diversity is well-preserved in the neuronal DNA methylome. We also notice higher levels of errors in location prediction of some cell types, especially in the cortical MGE and CGE inhibitory neurons (Fig. 6c , Extended Data Fig. 11c ).",
+            "keywords": [
+                "cell type",
+                "spatial prediction model",
+                "DNA methylome",
+                "multi-task deep ANN",
+                "neuronal subtype",
+                "spatial location",
+                "location prediction accuracy"
+            ]
+        },
+        {
+            "section_number": 11,
+            "heading": "Discussion",
+            "content": "In this Article, we present a single-cell DNA methylomic atlas of the mouse brain with detailed spatial dissection. This comprehensive dataset enables high-throughput cell-type classification, marker gene prediction and identification of regulatory elements. The three-level iterative clustering defined 161 subtypes representing excitatory (68), inhibitory (77) and non-neuronal cells (16). The development of a hierarchical taxonomic architecture for cell subtypes on the basis of CH-DMGs allowed us to assign specific genes and transcription factor binding motifs to taxonomy branches using the methylation impact score. These assignments describe cell-type specificity at different levels, potentially relating to different developmental stages of each neuronal lineage. Notably, we found that transcription factor genes and their corresponding DNA-binding motifs were co-associated with the same branch in the taxonomy, providing a rich source of candidate transcription factors for future study. Through integration with snATAC-seq 3 , we matched subtypes classified in both epigenomic modalities and used the combined information to predict 1.6 million active-enhancer-like eDMRs, including 72% of cell-type-specific elements missed from previous tissue-level bulk studies 8 . To examine the associations of eDMRs and their targeting genes, we applied multi-omic methods to establish an eDMR\u2013gene landscape using correlation-based prediction and chromatin conformation profiling using sn-m3C-seq, resulting in the identification of chromatin loops between eDMRs and their potential targeting genes in specific cell types. Our brain-wide epigenomic dataset reveals extraordinary spatial diversity encoded in the DNA methylomes of neurons.",
+            "keywords": [
+                "single-cell DNA methylomic atlas",
+                "mouse brain",
+                "spatial dissection",
+                "cell-type classification",
+                "marker gene prediction",
+                "regulatory elements",
+                "iterative clustering",
+                "transcription factor binding motifs"
+            ]
+        }
+    ],
+    "references": [
+        "1 , 2",
+        "3",
+        "4",
+        "5 , 6",
+        "1 , 6 , 7 , 8",
+        "9",
+        "1 , 7",
+        "1 , 7 , 8",
+        "6 , 10",
+        "11 , 12 , 13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "1 , 19 , 20",
+        "20 , 21",
+        "22",
+        "19 , 23",
+        "24",
+        "25 , 26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "33 , 35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44",
+        "45 , 46",
+        "47 , 48 , 49",
+        "48",
+        "50",
+        "51",
+        "52",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57",
+        "58",
+        "59",
+        "60",
+        "61",
+        "62",
+        "63",
+        "64",
+        "65",
+        "66"
+    ],
+    "metadata": {
+        "DOI": "10.1038/s41586-020-03182-8",
+        "source": "pdfs",
+        "url": "https://www.nature.com/articles/s41586-020-03182-8",
+        "language": "en",
+        "processed_date": "2025-03-14",
+        "scrape_id": "a175b258-ec9b-40c5-99c7-e9df4807b61d",
+        "statusCode": 200
+    }
+}
