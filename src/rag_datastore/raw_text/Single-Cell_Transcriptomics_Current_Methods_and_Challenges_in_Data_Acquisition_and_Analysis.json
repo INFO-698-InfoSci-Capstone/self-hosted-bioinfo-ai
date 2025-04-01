@@ -1,0 +1,22 @@
+{
+  "title": "Single-Cell Transcriptomics: Current Methods and Challenges in Data Acquisition and Analysis",
+  "authors": [
+    "Asif Adil",
+    "Vijay Kumar",
+    "Arif Tasleem Jan",
+    "Mohammed Asger"
+  ],
+  "year": 2021,
+  "journal": "Frontiers in Neuroscience",
+  "doi": "10.3389/fnins.2021.591122",
+  "pmcid": null,
+  "keywords": [
+    "single-cell transcriptomics",
+    "Sc-RNA-seq",
+    "big data",
+    "single-cell big data",
+    "normalization",
+    "single-cell analysis",
+    "downstream analysis"
+  ]
+}

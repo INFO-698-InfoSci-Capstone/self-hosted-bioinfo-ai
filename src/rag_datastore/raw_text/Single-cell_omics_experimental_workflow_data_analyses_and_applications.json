@@ -1,0 +1,38 @@
+{
+  "title": "Single-cell omics: experimental workflow, data analyses and applications",
+  "authors": [
+    "Fengying Sun",
+    "Haoyan Li",
+    "Dongqing Sun",
+    "Shaliu Fu",
+    "Lei Gu",
+    "Xin Shao",
+    "Qinqin Wang",
+    "Xin Dong",
+    "Bin Duan",
+    "Feiyang Xing",
+    "Jun Wu",
+    "Minmin Xiao",
+    "Fangqing Zhao",
+    "Jing-Dong J. Han",
+    "Qi Liu",
+    "Xiaohui Fan",
+    "Chen Li",
+    "Chenfei Wang",
+    "Tieliu Shi"
+  ],
+  "year": 2025,
+  "journal": "Science China Life Sciences",
+  "doi": "10.1007/s11427-023-2561-0",
+  "pmcid": null,
+  "keywords": [
+    "single-cell sequencing",
+    "genome",
+    "epigenome",
+    "proteomics",
+    "metabolomics",
+    "multimodal",
+    "spatial transcriptomics",
+    "CRISPR screening"
+  ]
+}

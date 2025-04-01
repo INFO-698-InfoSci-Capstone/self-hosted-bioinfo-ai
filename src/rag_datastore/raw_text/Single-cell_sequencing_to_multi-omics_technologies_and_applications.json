@@ -1,0 +1,27 @@
+{
+  "title": "Single-cell sequencing to multi-omics: technologies and applications",
+  "authors": [
+    "Xiangyu Wu",
+    "Xin Yang",
+    "Yunhan Dai",
+    "Zihan Zhao",
+    "Junmeng Zhu",
+    "Hongqian Guo",
+    "Rong Yang"
+  ],
+  "year": 2024,
+  "journal": "Biomarker Research",
+  "doi": "10.1186/s40364-024-00643-4",
+  "pmcid": null,
+  "keywords": [
+    "Single-cell multi-omics",
+    "scRNA-seq",
+    "scTCR-seq",
+    "scBCR-seq",
+    "Spatial transcriptomics",
+    "Proteomics",
+    "Microbiome",
+    "Metabolome",
+    "Computational biology"
+  ]
+}

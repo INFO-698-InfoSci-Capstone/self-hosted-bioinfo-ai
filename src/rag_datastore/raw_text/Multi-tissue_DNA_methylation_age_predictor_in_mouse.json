@@ -1,0 +1,28 @@
+{
+  "title": "Multi-tissue DNA methylation age predictor in mouse",
+  "authors": [
+    "Thomas M. Stubbs",
+    "Marc Jan Bonder",
+    "Anne-Katrien Stark",
+    "Felix Krueger",
+    "Ferdinand von Meyenn",
+    "Oliver Stegle",
+    "Wolf Reik"
+  ],
+  "year": 2017,
+  "journal": "Genome Biology",
+  "doi": "10.1186/s13059-017-1203-5",
+  "pmcid": null,
+  "keywords": [
+    "DNA methylation",
+    "Epigenetics",
+    "Ageing/aging",
+    "Ovariectomy",
+    "Epigenetic clock",
+    "High fat diet",
+    "Chronological age",
+    "Biological age",
+    "Prediction",
+    "Model"
+  ]
+}

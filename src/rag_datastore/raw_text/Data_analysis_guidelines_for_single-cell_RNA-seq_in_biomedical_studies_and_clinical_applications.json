@@ -1,0 +1,32 @@
+{
+  "title": "Data analysis guidelines for single-cell RNA-seq in biomedical studies and clinical applications",
+  "authors": [
+    "Min Su",
+    "Tao Pan",
+    "Qiu-Zhen Chen",
+    "Wei-Wei Zhou",
+    "Yi Gong",
+    "Gang Xu",
+    "Huan-Yu Yan",
+    "Si Li",
+    "Qiao-Zhen Shi",
+    "Ya Zhang",
+    "Xiao He",
+    "Chun-Jie Jiang",
+    "Shi-Cai Fan",
+    "Xia Li",
+    "Murray J. Cairns",
+    "Xi Wang",
+    "Yong-Sheng Li"
+  ],
+  "year": 2022,
+  "journal": "Military Medical Research",
+  "doi": "10.1186/s40779-022-00434-8",
+  "pmcid": null,
+  "keywords": [
+    "Single-cell RNA-sequencing (scRNA-seq)",
+    "Data analysis",
+    "Biomedical research",
+    "Clinical applications"
+  ]
+}

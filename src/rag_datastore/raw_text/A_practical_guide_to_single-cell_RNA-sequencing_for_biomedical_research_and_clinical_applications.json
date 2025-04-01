@@ -1,0 +1,20 @@
+{
+  "title": "A practical guide to single-cell RNA-sequencing for biomedical research and clinical applications",
+  "authors": [
+    "Ashraful Haque",
+    "Jessica Engel",
+    "Sarah A. Teichmann",
+    "Tapio Lönnberg"
+  ],
+  "year": 2017,
+  "journal": "Genome Medicine",
+  "doi": "10.1186/s13073-017-0467-4",
+  "pmcid": null,
+  "keywords": [
+    "Single Cell Isolation",
+    "External RNA Controls Consortium (ERCC)",
+    "Unique Molecular Identifiers",
+    "mRNA Capture",
+    "Polyadenylated mRNA Species"
+  ]
+}

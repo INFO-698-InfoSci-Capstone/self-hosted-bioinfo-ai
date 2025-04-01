@@ -1,0 +1,24 @@
+{
+  "title": "Comparative Analysis of Single-Cell RNA Sequencing Methods with and without Sample Multiplexing",
+  "authors": [
+    "Yi Xie",
+    "Huimei Chen",
+    "Vasuki Ranjani Chellamuthu",
+    "Ahmad bin Mohamed Lajam",
+    "Salvatore Albani",
+    "Andrea Hsiu Ling Low",
+    "Enrico Petretto",
+    "Jacques Behmoaras"
+  ],
+  "year": 2024,
+  "journal": "Int J Mol Sci",
+  "doi": "10.3390/ijms25073828",
+  "pmcid": "PMC11011421",
+  "keywords": [
+    "single-cell RNA sequencing",
+    "multiplexing",
+    "SPLiT-seq",
+    "10x",
+    "PBMC"
+  ]
+}

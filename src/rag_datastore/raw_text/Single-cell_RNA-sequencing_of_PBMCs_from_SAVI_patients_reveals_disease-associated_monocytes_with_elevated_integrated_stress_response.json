@@ -1,0 +1,38 @@
+{
+  "title": "Single-cell RNA-sequencing of PBMCs from SAVI patients reveals disease-associated monocytes with elevated integrated stress response",
+  "authors": [
+    "Camille de Cevins",
+    "Laure Delage",
+    "Maxime Batignes",
+    "Quentin Riller",
+    "Marine Luka",
+    "Anne Remaury",
+    "Boris Sorin",
+    "Tinhinane Fali",
+    "Cécile Masson",
+    "Bénédicte Hoareau",
+    "Catherine Meunier",
+    "Mélanie Parisot",
+    "Mohammed Zarhrate",
+    "Brieuc P. Pérot",
+    "Víctor García-Paredes",
+    "Francesco Carbone",
+    "Lou Galliot",
+    "Béatrice Nal",
+    "Philippe Pierre",
+    "Luc Canard",
+    "Mickaël M. Ménager"
+  ],
+  "year": 2023,
+  "journal": "Cell Reports Medicine",
+  "doi": "10.1016/j.xcrm.2023.101333",
+  "pmcid": "PMC10753865",
+  "keywords": [
+    "type I interferon",
+    "SAVI",
+    "STING",
+    "unfolded protein response",
+    "integrated stress response",
+    "scRNA-seq"
+  ]
+}

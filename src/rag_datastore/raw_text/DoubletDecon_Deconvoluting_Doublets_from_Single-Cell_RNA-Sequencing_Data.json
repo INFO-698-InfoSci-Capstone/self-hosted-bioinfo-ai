@@ -1,0 +1,18 @@
+{
+  "title": "DoubletDecon: Deconvoluting Doublets from Single-Cell RNA-Sequencing Data",
+  "authors": [
+    "Erica AK DePasquale",
+    "Daniel J Schnell",
+    "Pieter-Jan Van Camp",
+    "Íñigo Valiente-Alandí",
+    "Burns C Blaxall",
+    "H Leighton Grimes",
+    "Harinder Singh",
+    "Nathan Salomonis"
+  ],
+  "year": 2019,
+  "journal": "Cell Rep",
+  "doi": null,
+  "pmcid": "PMC6983270",
+  "keywords": []
+}
