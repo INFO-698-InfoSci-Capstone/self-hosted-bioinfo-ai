@@ -11,8 +11,9 @@ The highlight from the previous weekly/bi-weekly working period, such as somethi
 Something that you are looking forward to digging into deeper. This could also be ideas on how to apply concepts to your research in the future. 
 ### Thorn: 
 Something that was challenging that could be worked on, such as anything that wasn't 100% clear and could be elaborated on. Any sticking points should be addressed here. 
-## Additional thought
+### Additional thought
 Write anything that you think would be important for YOU later on.
+
 ------------------------------------------------------------------------------------------------
 
 # Weekly/Bi-Weekly Log (Jose F Oviedo)
@@ -22,28 +23,28 @@ Write anything that you think would be important for YOU later on.
 ### Rose: Got to experiment with APIs and web scraping.
 ### Bud: How to use LMs to organize unstructured data.
 ### Thorn: Cleaning the scraped html data for better model understanding.
-## Additional thoughts: Try different frameworks until you find the right one for the job.
+### Additional thoughts: Try different frameworks until you find the right one for the job.
 
 ### Date: 2025-03-24
 ### Number of hours: 1.5 hours
 ### Rose: Getting LMs to process our documents and give us the structured outputs we want.
 ### Bud: There are different ways to get a model to process unstructured data depending on the model capabilities.
 ### Thorn: There are so many models available with different strengths and weaknesses.
-## Additional thoughts: Test different models and compare outputs.
+### Additional thoughts: Test different models and compare outputs.
 
 ### Date: 2025-03-31
 ### Number of hours: 2 hours
 ### Rose: regenerated structured outputs for simpler schema better suited to our vector database.
 ### Bud: We are moving on to the next step of developing the application systems.
 ### Thorn: The original structured outputs were too nested for our application. 
-## Additional thoughts: review system constraints frequently.
+### Additional thoughts: review system constraints frequently.
 
 ### Date: 2025-04-03
 ### Number of hours: 2 hours
 ### Rose: Put together the proposal with the team and sent to mentors.
 ### Bud: We will take suggestions from team mentors and implement them. 
 ### Thorn: proposal revisions.
-## Additional thoughts: work with team to stay on track and reach milestones.
+### Additional thoughts: work with team to stay on track and reach milestones.
 
 ------------------------------------------------------------------------------------------------
 
@@ -60,7 +61,7 @@ The highlight from the previous weekly/bi-weekly working period, such as somethi
 Something that you are looking forward to digging into deeper. This could also be ideas on how to apply concepts to your research in the future. 
 ### Thorn: 
 Something that was challenging that could be worked on, such as anything that wasn't 100% clear and could be elaborated on. Any sticking points should be addressed here. 
-## Additional thoughts:
+### Additional thoughts:
 Write anything that you think would be important for YOU later on.
 
 ------------------------------------------------------------------------------------------------
@@ -78,7 +79,7 @@ The highlight from the previous weekly/bi-weekly working period, such as somethi
 Something that you are looking forward to digging into deeper. This could also be ideas on how to apply concepts to your research in the future. 
 ### Thorn: 
 Something that was challenging that could be worked on, such as anything that wasn't 100% clear and could be elaborated on. Any sticking points should be addressed here. 
-## Additional thoughts:
+### Additional thoughts:
 Write anything that you think would be important for YOU later on.
 
 ------------------------------------------------------------------------------------------------
@@ -96,7 +97,7 @@ The highlight from the previous weekly/bi-weekly working period, such as somethi
 Something that you are looking forward to digging into deeper. This could also be ideas on how to apply concepts to your research in the future. 
 ### Thorn: 
 Something that was challenging that could be worked on, such as anything that wasn't 100% clear and could be elaborated on. Any sticking points should be addressed here. 
-## Additional thoughts:
+### Additional thoughts:
 Write anything that you think would be important for YOU later on.
 
 ------------------------------------------------------------------------------------------------
@@ -114,5 +115,5 @@ The highlight from the previous weekly/bi-weekly working period, such as somethi
 Something that you are looking forward to digging into deeper. This could also be ideas on how to apply concepts to your research in the future. 
 ### Thorn: 
 Something that was challenging that could be worked on, such as anything that wasn't 100% clear and could be elaborated on. Any sticking points should be addressed here. 
-## Additional thoughts:
+### Additional thoughts:
 Write anything that you think would be important for YOU later on.
