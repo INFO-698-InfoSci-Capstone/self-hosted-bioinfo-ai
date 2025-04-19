@@ -69,38 +69,16 @@ Write anything that you think would be important for YOU later on.
 
 # Weekly/Bi-Weekly Log (Aslam Sheik Dawood)
 
-### Date:  04-04-2025
-### Number of hours: 3 
+### Date:  03-12-2025
+### Number of hours: 3.5 
 ### Rose:
-Successfully integrated HuggingFaceEmbeddings and vector store using FAISS. Setting up the foundational embedding model and vector storage was satisfying as it laid the groundwork for the rest of the system.
+The highlight from the previous weekly/bi-weekly working period, such as something you found particularly rewarding. This could also be something you're excited to implement now.
 ### Bud: 
-Looking forward to implementing query mechanisms over the stored embeddings. 
+Something that you are looking forward to digging into deeper. This could also be ideas on how to apply concepts to your research in the future. 
 ### Thorn: 
-Setting up the right paths and ensuring langchain compatibility with faiss required debugging and reviewing multiple dependencies. 
+Something that was challenging that could be worked on, such as anything that wasn't 100% clear and could be elaborated on. Any sticking points should be addressed here. 
 ### Additional thoughts:
-Review more use cases for using HuggingFace models within LangChain, particularly for fine-tuned responses.
-
-### Date:  11-04-2025
-### Number of hours: 3.5
-### Rose:
-Worked on document chunking using RecursiveCharacterTextSplitter and successfully created and persisted a FAISS index. This enabled more efficient vector-based retrieval.
-### Bud: 
-Next goal is to connect a retriever chain with custom prompts for better user interaction. 
-### Thorn: 
-Splitting strategies had to be adjusted a few times to ensure context retention within chunks. 
-### Additional thoughts:
-Consider experimenting with chunk overlap for semantic consistency in future iterations.
-
-### Date:  18-04-2025
-### Number of hours: 4
-### Rose:
-Integrated the custom retriever into a conversational retrieval chain. Created custom prompts and tested them with a simple question-answer loop.
-### Bud: 
-Looking forward to refining prompt templates and deploying the system for broader document sets. 
-### Thorn: 
-Some prompts were too vague and led to incoherent completions; prompt engineering remains a nuanced task. 
-### Additional thoughts:
-Try OpenAI's model and compare the performance with HuggingFace in the same chain.
+Write anything that you think would be important for YOU later on.
 
 ------------------------------------------------------------------------------------------------
 
