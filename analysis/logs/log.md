@@ -126,14 +126,26 @@ Write anything that you think would be important for YOU later on.
 # Weekly/Bi-Weekly Log (Vamsi Vadala)
 
 ### Date: 
-Week number, today's date, etc. 
+April 8-21, 2025
 ### Number of hours: 
-A quantity of hours, maybe towards specific tasks. 
+~20–24 hours
+
+- Embedding setup + storage: ~8 hrs
+
+- Model experimentation (HuggingFace variants): ~6 hrs
+
+- Debugging similarity scores: ~6 hrs
+
+- Documentation and testing: ~4 hrs
 ### Rose:
-The highlight from the previous weekly/bi-weekly working period, such as something you found particularly rewarding. This could also be something you're excited to implement now.
+Successfully implemented a complete local embedding pipeline using LangChain + HuggingFace + FAISS. I was able to split and store documents locally and validate search functionality with custom text queries. It’s exciting to have a reusable and scalable vector store ready for bio-medical texts.
 ### Bud: 
-Something that you are looking forward to digging into deeper. This could also be ideas on how to apply concepts to your research in the future. 
+I’m looking forward to exploring how I can enhance semantic search accuracy by trying out domain-specific embedding models like BioLinkBERT and PubMedBERT for better results in biomedical research queries.
 ### Thorn: 
-Something that was challenging that could be worked on, such as anything that wasn't 100% clear and could be elaborated on. Any sticking points should be addressed here. 
+Cosine similarity scores across different models are consistently low (ranging between 0.3–0.7), and results aren’t very sharp even with relevant queries. This could be due to the nature of the text (e.g. BioMedical related terminology, math-heavy context). Understanding how to embed such data more effectively and aligning it with the model's expected input has been a challenge.
 ### Additional thoughts:
-Write anything that you think would be important for YOU later on.
+- I want to add evaluation metrics (e.g., manual relevance scores) to compare different models more objectively.
+
+- Would be helpful to test the current FAISS setup against a more interactive retrieval system like RAG or Haystack to assess real-world performance.
+
+- Need to add logging to track document IDs and their matched query results to debug deeper.
