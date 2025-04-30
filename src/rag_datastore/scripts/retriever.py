@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
 import argparse
-
-from langchain_huggingface import HuggingFaceEmbeddings
+import fitz  # PyMuPDF
+from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.vectorstores import FAISS
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_core.documents import Document
 
 
 class FaissRetriever:
@@ -30,8 +32,8 @@ class FaissRetriever:
         splitter = CharacterTextSplitter(chunk_size=500, chunk_overlap=50)
         texts = splitter.split_text(text)
         documents = [Document(page_content=t) for t in texts]
-        # Creating the FAISS vector store from PDF chunks
-        self.vector_store = FAISS.from_documents(documents, self.embeddings)
+        # Adding the pdf chunks to FAISS vector store
+        self.vector_store.add_documents(documents)
         
     def retrieve(self, query: str, k: int = 3) -> list[str]:
         """
