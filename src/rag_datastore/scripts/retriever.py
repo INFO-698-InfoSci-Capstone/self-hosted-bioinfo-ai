@@ -22,7 +22,17 @@ class FaissRetriever:
             embeddings=self.embeddings,
             allow_dangerous_deserialization=True
         )
-
+    def build_index_from_pdf(self, pdf_path: str):
+        # Extracting the text from PDF
+        doc = fitz.open(pdf_path)
+        text = "\n".join(page.get_text() for page in doc)
+        # Splitting it into chunks
+        splitter = CharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+        texts = splitter.split_text(text)
+        documents = [Document(page_content=t) for t in texts]
+        # Creating the FAISS vector store from PDF chunks
+        self.vector_store = FAISS.from_documents(documents, self.embeddings)
+        
     def retrieve(self, query: str, k: int = 3) -> list[str]:
         """
         Returns the top-k document chunks (as strings) most similar to `query`.
@@ -51,14 +61,18 @@ def main():
     parser.add_argument(
         "--top_k", type=int, default=3, help="Number of top chunks to return"
     )
-
+    parser.add_argument("--pdf", type=str, help="Path to a PDF to index")
     args = parser.parse_args()
 
     retriever = FaissRetriever(
-        index_folder=args.index_folder,
         embedding_model=args.embed_model,
     )
-
+    if args.pdf:
+        retriever.build_index_from_pdf(args.pdf)
+    elif args.index_folder:
+        retriever.load_faiss_index(args.index_folder)
+    else:
+        raise ValueError("You must provide either --pdf or --index_folder")
     snippets = retriever.retrieve(args.query, k=args.top_k)
 
     print("\n--- Retrieved snippets ---\n")
