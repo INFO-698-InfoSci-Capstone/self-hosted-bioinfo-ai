@@ -71,8 +71,8 @@ def main():
     retriever = FaissRetriever(
         embedding_model=args.embed_model,
     )
-    # if args.pdf:
-    #     retriever.build_index_from_pdf(args.pdf)
+    if args.pdf:
+        retriever.build_index_from_pdf(args.pdf)
     # elif args.index_folder:
     #     retriever.load_faiss_index(args.index_folder)
     # else:
