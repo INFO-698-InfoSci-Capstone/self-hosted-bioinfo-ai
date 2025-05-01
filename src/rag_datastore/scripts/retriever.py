@@ -8,6 +8,8 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_core.documents import Document
 
 
+# FIASS_FOLDER = "src/rag_datastore/faiss_index_store"
+
 class FaissRetriever:
     def __init__(
         self,
@@ -58,7 +60,7 @@ def main():
         help="HuggingFace model you used to build the index",
     )
     parser.add_argument(
-        "--query", type=str, required=True, help="The user query to retrieve for"
+        "--query", type=str, required=True, help="The user query to retrieve for", default="What is kind of microscope and imaging software was used in colonoid paper?"
     )
     parser.add_argument(
         "--top_k", type=int, default=3, help="Number of top chunks to return"
@@ -69,12 +71,12 @@ def main():
     retriever = FaissRetriever(
         embedding_model=args.embed_model,
     )
-    if args.pdf:
-        retriever.build_index_from_pdf(args.pdf)
-    elif args.index_folder:
-        retriever.load_faiss_index(args.index_folder)
-    else:
-        raise ValueError("You must provide either --pdf or --index_folder")
+    # if args.pdf:
+    #     retriever.build_index_from_pdf(args.pdf)
+    # elif args.index_folder:
+    #     retriever.load_faiss_index(args.index_folder)
+    # else:
+    #     raise ValueError("You must provide either --pdf or --index_folder")
     snippets = retriever.retrieve(args.query, k=args.top_k)
 
     print("\n--- Retrieved snippets ---\n")
