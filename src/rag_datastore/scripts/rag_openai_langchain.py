@@ -5,13 +5,23 @@
 rag_openai_langchain.py
 
 Loads a persisted FAISS store and runs a simple Retrieval-QA loop.
+
+Dependencies:
+    pip install langchain-huggingface langchain-community langchain-openai sentence-transformers faiss-cpu
 """
 
 import os
-from langchain_community.embeddings import HuggingFaceEmbeddings
+# Disable tokenizers parallelism warnings (huggingface)
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
+
+# Updated embeddings import from langchain-huggingface
+from langchain_huggingface import HuggingFaceEmbeddings
+# FAISS vectorstore from langchain-community
 from langchain_community.vectorstores import FAISS
-from langchain_community.llms import OpenAI
+# Updated OpenAI LLM import
+from langchain_openai import OpenAI
 from langchain.chains import RetrievalQA
+
 
 def main():
     # 1. Ensure your OpenAI key is set
@@ -52,8 +62,12 @@ def main():
         if not query.strip():
             print("Please enter a non-empty question.")
             continue
-        answer = qa_chain.run(query)
+        # Use invoke instead of run to avoid deprecation warning
+        result = qa_chain.invoke({"query": query})
+        # Extract answer from result dict (usually under 'result')
+        answer = result.get("result") or next(iter(result.values()))
         print(f"\n💡 Answer: {answer}")
+
 
 if __name__ == "__main__":
     main()
