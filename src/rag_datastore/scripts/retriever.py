@@ -6,14 +6,14 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_core.documents import Document
-
+from typing import Optional
 
 # FIASS_FOLDER = "src/rag_datastore/faiss_index_store"
 
 class FaissRetriever:
     def __init__(
         self,
-        index_folder: str,
+        index_folder:Optional[str] = None,
         embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2",
     ):
         # 1) Set up the HF embedder (must match what you used to build the index)
@@ -50,7 +50,7 @@ def main():
     parser.add_argument(
         "--index_folder",
         type=str,
-        default="faiss_index_store",
+        default="./src/rag_datastore/faiss_index_store",
         help="Path to folder containing your saved FAISS index (index.pkl)",
     )
     parser.add_argument(
@@ -60,7 +60,7 @@ def main():
         help="HuggingFace model you used to build the index",
     )
     parser.add_argument(
-        "--query", type=str, required=True, help="The user query to retrieve for", default="What is kind of microscope and imaging software was used in colonoid paper?"
+        "--query", type=str, help="The user query to retrieve for", default="what is RAG"
     )
     parser.add_argument(
         "--top_k", type=int, default=3, help="Number of top chunks to return"
@@ -70,6 +70,7 @@ def main():
 
     retriever = FaissRetriever(
         embedding_model=args.embed_model,
+        index_folder=args.index_folder
     )
     if args.pdf:
         retriever.build_index_from_pdf(args.pdf)
