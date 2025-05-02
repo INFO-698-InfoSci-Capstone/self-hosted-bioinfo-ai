@@ -44,7 +44,28 @@ Write anything that you think would be important for YOU later on.
 ### Rose: Put together the proposal with the team and sent to mentors.
 ### Bud: We will take suggestions from team mentors and implement them. 
 ### Thorn: proposal revisions.
-### Additional thoughts: work with team to stay on track and reach milestones.
+### Additional thoughts: Work with team to stay on track and reach milestones.
+
+### Date: 2025-04-25
+### Number of hours: 4 hours
+### Rose: Coded a basic vector db retriever for testing the db.
+### Bud: We will move on to implementing a full rag system connected to an LLM. 
+### Thorn: We plan on using Google Gemini LMs but have had compatibility issues.
+### Additional thoughts: Work with team to maintain communication. 
+
+### Date: 2025-05-01
+### Number of hours: 3 hours
+### Rose: Implemented a RAG system that connects to our FAISS vector db.
+### Bud: We will deploy webapp to cloud with streamlit for uiux plase.  
+### Thorn: The RAG system that worked most robustly ended up using openai LMs and langchain instead of Google LMs.
+### Additional thoughts: Work with team to maintain communication. 
+
+### Date: 2025-05-02
+### Number of hours: 1 hours
+### Rose: Team put forward poster content and we are reviewing it before finalizing poster.
+### Bud: We have a good amount of poster content to work with and also a plan for our app demo using printed publications that were digested into the KB.
+### Thorn: We havent yet connected the uiux to the backend RAG system but are working on it.
+### Additional thoughts: Choose final poster design with the team. 
 
 ------------------------------------------------------------------------------------------------
 
