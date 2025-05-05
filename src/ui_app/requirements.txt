@@ -1,0 +1,6 @@
+streamlit
+langchain
+torch
+faiss-cpu
+pypdf
+mistralai
