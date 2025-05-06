@@ -1,6 +1,11 @@
 streamlit
 langchain
+langchain-core
+langchain-openai
+langchain-huggingface
+langchain-community
 torch
 faiss-cpu
+chromadb==0.6.3
 pypdf
 mistralai

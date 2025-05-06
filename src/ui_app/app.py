@@ -1,6 +1,8 @@
 import streamlit as st
 
-from utilities import initiate_client, left_column_content, right_column_content
+from utilities import (initiate_client, 
+                        left_column_content, right_column_content)
+from llm_resources import load_vectordb
 
 st.set_page_config(page_title="Bioinformatics Lab Assistant",
                    page_icon="🧬",
@@ -14,7 +16,6 @@ st.markdown(
             padding-top: 2%;
             padding-bottom: 0;
         }
-
     </style>
     """,
     unsafe_allow_html=True,
@@ -32,6 +33,10 @@ def main() -> None:
         ]
     if "client" not in st.session_state:
         st.session_state.client = initiate_client()
+
+    if "vectordb" not in st.session_state:
+        # st.session_state.retriever = load_retriever("faiss_index_store")  # path on disk
+        st.session_state.vectordb = load_vectordb("faiss_index_store")
 
     # --- Layout: chat (left) • uploads (right) ---
     left_col, right_col = st.columns([3, 1], gap="small")
