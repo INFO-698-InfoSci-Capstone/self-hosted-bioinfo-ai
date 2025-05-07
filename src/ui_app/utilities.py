@@ -2,7 +2,7 @@ import streamlit as st
 from openai import OpenAI
 
 from langchain_community.vectorstores import FAISS
-from llm_resources import retriever, Generator
+from llm_resources import retriever, Generator, make_docs_from_uploads
 
 # -----------------------------  UTILITIES  ---------------------------------- #
 @st.cache_resource
@@ -43,8 +43,8 @@ def answer_with_context(client: OpenAI, vectordb: FAISS, question: str):
     Returns (assistant_reply, reference_block).
     """
     # 1. Retrieve docs
-    # docs = retriever.get_relevant_documents(question)            # :contentReference[oaicite:1]{index=1}
-    docs = retriever.invoke(question)            # :contentReference[oaicite:1]{index=1}
+    # docs = retriever.get_relevant_documents(question)        
+    docs = retriever.invoke(question) 
     print("--------------------------------------------------------------------------------------------")
     for doc in docs:
         print(doc.metadata['score'], ": ", doc.metadata['title'])
@@ -88,11 +88,19 @@ def right_column_content():
         "Upload notes, papers, or data files you might want to reference later.",
         accept_multiple_files=True,
         type=None,
-        label_visibility="collapsed",
     )
-    if uploaded_files:
-        st.success(f"{len(uploaded_files)} file(s) stored in session "
-                    "— we'll wire them into the LLM in the next step.")
+
+    confirm = st.button("Confirm upload", disabled=not uploaded_files, type="primary", use_container_width=True)
+
+    if confirm and uploaded_files:
+
+        st.session_state.uploading = True
+        with st.spinner("Uploading context, please wait..."):
+            new_docs = make_docs_from_uploads(uploaded_files)
+            st.session_state.vectordb.add_documents(new_docs)
+        
+        st.session_state.uploading = False
+        st.success(f"Added {len(uploaded_files)} new document(s) to context", icon="📚")
         
 def left_column_content():
     chat_msg_placeholder = st.container(height=500, border=False)
@@ -102,7 +110,7 @@ def left_column_content():
         with chat_msg_placeholder.chat_message(msg["role"]):
             st.markdown(msg["content"], unsafe_allow_html=True)
     
-    user_prompt = input_msg_placeholder.chat_input("Type your question here…")
+    user_prompt = input_msg_placeholder.chat_input("Type your question here…", disabled = st.session_state.uploading)
 
     if user_prompt:
         # save + echo user message
@@ -130,5 +138,10 @@ def left_column_content():
             _, refs = response_generator.value
             if refs != "":
                 full_reply += "\n\n"
-                full_reply += f"<sub>{refs}<\sub>"
+                full_reply += f"<sub>{refs}</sub>"
                 st.caption(f"{refs}")
+        
+        # add assistant reply to history
+        st.session_state.messages.append(
+            {"role": "assistant", "content": full_reply}
+        )
