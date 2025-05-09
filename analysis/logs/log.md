@@ -73,18 +73,95 @@ Write anything that you think would be important for YOU later on.
 # Weekly/Bi-Weekly Log (Visalakshi Prakash Iyer)
 
 ### Date: 
-Week number, today's date, etc. 
+02/08/2025
 ### Number of hours: 
-A quantity of hours, maybe towards specific tasks. 
+3
 ### Rose:
-The highlight from the previous weekly/bi-weekly working period, such as something you found particularly rewarding. This could also be something you're excited to implement now.
+Successfully organized and led the requirement definition meeting. It was rewarding to see the team actively contribute ideas, which I synthesized into a comprehensive flowchart outlining the application's architecture. This collaborative effort clarified our vision and set a strong foundation for the project.
 ### Bud: 
-Something that you are looking forward to digging into deeper. This could also be ideas on how to apply concepts to your research in the future. 
+I'm looking forward to refining the requirements further and translating our high-level ideas into actionable tasks. I'm also excited to explore how we can leverage the latest advancements in vector databases and LLM integration for our use case.
 ### Thorn: 
-Something that was challenging that could be worked on, such as anything that wasn't 100% clear and could be elaborated on. Any sticking points should be addressed here. 
+Coordinating everyone's availability for the initial meeting was a challenge, and some requirements were still a bit vague after the first session. I need to ensure we revisit these points and get explicit agreement on scope to avoid confusion later. 
 ### Additional thoughts:
-Write anything that you think would be important for YOU later on.
+Documenting early decisions in detail will be crucial. I should keep a running list of open questions to revisit in future meetings to ensure nothing falls through the cracks.
 
+### Date: 
+02/16/2025
+### Number of hours: 
+8
+### Rose:
+I compiled the final architecture and led several productive brainstorming sessions. It was satisfying to troubleshoot gaps in our feature designs and finalize the essential tech stack. The team’s engagement and willingness to iterate on ideas made this phase particularly successful.
+### Bud: 
+Looking forward to seeing how our chosen architecture performs in practice, especially the integration between the LLM and the vector database. I’m eager to start prototyping and validating our design decisions.
+### Thorn: 
+Some technical trade-offs were difficult, especially regarding scalability and data flow. I want to revisit these decisions after initial implementation to ensure they hold up under real-world conditions.
+### Additional thoughts:
+NA
+
+### Date: 
+03/12/2025
+### Number of hours: 
+3
+### Rose:
+Provided the starter path for implementation of the vector database and oversaw the data transformation structure. It was rewarding to see the team make progress on the backend, and my guidance helped avoid early pitfalls.
+### Bud: 
+Looking forward to deeper testing and optimization of the vectorstore, and to integrating it with the LLM for real-time knowledge retrieval.
+### Thorn: 
+Some initial confusion around the data transformation pipeline required extra troubleshooting.
+### Additional thoughts:
+NA
+
+### Date: 
+03/23/2025
+### Number of hours: 
+10
+### Rose:
+Led the team through the proposal writing and submission process. It was gratifying to see our collective ideas formalized into a coherent document and receive positive feedback from stakeholders.
+### Bud: 
+Excited to transition from planning to implementation and start building the core components. Looking forward to seeing our ideas take shape in code.
+### Thorn: 
+NA
+### Additional thoughts:
+Keep a template for future proposals and note what worked well in this process to streamline future submissions. 
+
+### Date: 
+04/12/2025
+### Number of hours: 
+6
+### Rose:
+Successfully tested the implementation of the vectorstore. It was satisfying to validate that our design choices worked as expected and to see the system retrieving relevant information accurately.
+### Bud: 
+Looking forward to integrating the UI with the backend and seeing the full workflow in action. Eager to gather user feedback on the system’s performance.
+### Thorn: 
+Encountered low semantic similarity score for some queries, that need to be dealth with
+### Additional thoughts:
+Maybe we can change the way we split the chunks of data to see if the score increases/decreases
+
+### Date: 
+04/20/2025 - 05/03/2025
+### Number of hours: 
+40-42
+### Rose:
+I developed and implemented the UI for the web application. This included building the chat interface, implementing the logic to connect the LLM to the knowledge base in the vectorstore, and ensuring chat messages were populated correctly. I also designed and implemented the layout, and crucially, connected the LLM to an additional context file uploader. This uploader routes uploaded files to the vectorstore, enabling the LLM to include new context in its responses. Ensured seamless integration between user actions, backend processing, and model inference. The code for these features is included in the project repository and has been thoroughly tested for robustness and usability.
+### Bud: 
+I am excited to observe real users interact with the system and to collect feedback on the UI/UX. Their input will guide final refinements and help identify any usability bottlenecks.
+### Thorn: 
+Integrating file uploads with real-time vectorstore updates and ensuring immediate availability for the LLM posed technical challenges, particularly with session state management and error handling in Streamlit.
+### Additional thoughts:
+Future improvements could include more granular user feedback mechanisms within the UI and web search functionality as well as code writing use cases, where the code and results can be seen within the app.
+
+### Date: 
+05/07/2025
+### Number of hours: 
+3.5
+### Rose:
+I presented the project at the iShowcase, answered queries from attendees, and demonstrated the full capabilities of the tool. It was rewarding to showcase the impact of our work and receive positive feedback from both peers and faculty. 
+### Bud: 
+I look forward to exploring opportunities for further development based on showcase feedback, including potential collaborations or extensions of the system for broader research domains.
+### Thorn: 
+Fielding unexpected questions during the demo highlighted a few edge cases in the application that could be improved, such as handling extremely large document uploads and clarifying citation outputs.
+### Additional thoughts:
+NA
 ------------------------------------------------------------------------------------------------
 
 
