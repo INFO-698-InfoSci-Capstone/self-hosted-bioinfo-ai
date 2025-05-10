@@ -204,19 +204,96 @@ Try OpenAI's model and compare the performance with HuggingFace in the same chai
 
 
 # Weekly/Bi-Weekly Log (Pranshu Singh Rawat)
+### Date: 
+03/23/2025
+### Number of hours: 
+3
+### Rose:
+Helped the team and contributed through the proposal writing and submission process. 
+### Bud: 
+Ready to put our ideas into execution
+### Thorn: 
+NA
+### Additional thoughts:
+Documenting our project progress.
 
 ### Date: 
-Week number, today's date, etc. 
+04-08-2025
 ### Number of hours: 
-A quantity of hours, maybe towards specific tasks. 
+4
 ### Rose:
-The highlight from the previous weekly/bi-weekly working period, such as something you found particularly rewarding. This could also be something you're excited to implement now.
+Contributed to some sections in openai.py, helping improve how prompts are sent and handled. It was satisfying to dig into the model integration logic and support stability across the backend.
 ### Bud: 
-Something that you are looking forward to digging into deeper. This could also be ideas on how to apply concepts to your research in the future. 
+Looking forward to improving how prompts adapt dynamically based on query type.
 ### Thorn: 
-Something that was challenging that could be worked on, such as anything that wasn't 100% clear and could be elaborated on. Any sticking points should be addressed here. 
+Some interdependencies in the codebase made debugging tricky—modifying prompt logic occasionally broke unrelated flows.
 ### Additional thoughts:
-Write anything that you think would be important for YOU later on.
+Excited to move further
+
+### Date: 
+04-20-2025
+### Number of hours: 
+2
+### Rose:
+Built the upload-PDF section for the retriever, making it easier to evaluate RAG workflows with real documents. This feature now supports user-friendly ingestion of new datasets.
+### Bud: 
+Looking forward to improving the chunking strategies.
+### Thorn: 
+Tuning the chunking logic for consistency and accuracy will be a future challenge
+### Additional thoughts:
+Would llike to make the code more efficient in the future.
+
+### Date: 
+04-28-2025
+### Number of hours: 
+2
+### Rose:
+Helped design and draft the poster for the project. It was a good opportunity to consolidate technical highlights in a clear visual format.
+### Bud: 
+Excited to see how feedback on the poster could help refine our project summary and pitch.
+### Thorn: 
+Balancing clarity and detail in the poster was tough given limited space.
+### Additional thoughts:
+We would like to add a workflow next to the poster to represent our project in a detailed way.
+
+### Date: 
+05-05-2025
+### Number of hours: 
+4
+### Rose:
+Worked on prompt engineering.Iterated through various formats to improve answer relevance
+### Bud: 
+Looking forward to testing prompts that handle ambiguous queries.
+### Thorn: 
+Some prompts still return low-confidence responses, if I ask a question outside our database the system returns an output without mentioning any specific sources.
+### Additional thoughts:
+Experiment with more examples from domain-specific queries.
+
+### Date: 
+05-06-2025
+### Number of hours: 
+2
+### Rose:
+Spent time testing system behavior through the UI—especially how different query styles affect output. Helped catch some issues too.
+### Bud: 
+We should handle the outputs of the queries whose data is not present in our vector store in a better way.
+### Thorn: 
+There were some errors with the output of prompts in UI which got fixed quickly by the team.
+### Additional thoughts:
+Have to think about more cases to check the systems limitations.
+
+### Date: 
+05/07/2025
+### Number of hours: 
+3
+### Rose:
+I supported the team at the iShowcase by helping with the setup, assisting during the live demo, and engaging with attendees. It was fulfilling to see our system in action and contribute to a successful presentation alongside my team. 
+### Bud: 
+I’m excited about the potential to refine our tool based on the interactions and suggestions we received
+### Thorn: 
+Some questions from attendees revealed usability gaps, like confusion around the file upload flow and inconsistent citation formatting.
+### Additional thoughts:
+Considering the feedback post-event to prioritize usability enhancements and UI adjustments.
 
 ------------------------------------------------------------------------------------------------
 
