@@ -200,6 +200,39 @@ Some prompts were too vague and led to incoherent completions; prompt engineerin
 ### Additional thoughts:
 Try OpenAI's model and compare the performance with HuggingFace in the same chain.
 
+### Date:  25-04-2025
+### Number of hours: 5
+### Rose:
+Successfully designed and implemented the FaissRetriever class, including initialization, loading a persisted FAISS vector store, and integrating HuggingFace embeddings. It was rewarding to see the retriever respond accurately to queries once the setup was complete.
+### Bud: 
+Looking forward to extending the retriever's utility by integrating other embedding models or adding filtering based on metadata. 
+### Thorn: 
+Understanding the compatibility between FAISS index files and the embedding model used took some time to debug. 
+### Additional thoughts:
+Maintain consistency between index-building and retrieval-time embeddings for best results.
+
+### Date:  02-05-2025
+### Number of hours: 4
+### Rose:
+Refactored the retrieval logic into a clean CLI interface, allowing dynamic input of PDF files and queries.
+### Bud: 
+Would like to explore batch querying and implementing output formatting or highlighting relevant sections. 
+### Thorn: 
+Adding argument flexibility without breaking default behaviors took a few trial runs. 
+### Additional thoughts:
+Consider adding logging to capture retrieval performance for different PDFs.
+
+### Date:  06-05-2025
+### Number of hours: 3
+### Rose:
+I help design the overall layout and structure of the poster, including section placements, color schemes, and ensuring the flow of content was logical and visually appealing. It was rewarding to see the technical content take shape in a clean, readable format.
+### Bud: 
+Looking forward to printing and presenting the poster, and observing how the audience engages with our design. 
+### Thorn: 
+Some initial alignment and spacing issues required iterative adjustments and layout testing. 
+### Additional thoughts:
+Next time, start with a wireframe or template to save setup time.
+
 ------------------------------------------------------------------------------------------------
 
 
