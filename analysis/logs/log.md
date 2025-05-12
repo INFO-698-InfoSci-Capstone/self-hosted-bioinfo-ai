@@ -358,6 +358,8 @@ Cosine similarity scores across different models are consistently low (ranging b
 
 - Need to add logging to track document IDs and their matched query results to debug deeper.
 
+---
+
 ### Date:
 April 21 – May 12, 2025
 
@@ -389,5 +391,5 @@ Faced persistent issues with the Gemini API calls within the RAG pipeline, espec
 ### Additional thoughts:
 
 - Need to finalize a benchmark suite of test queries to evaluate performance across local and API-based RAG systems.
-- Considering adding a Streamlit-based UI to visualize query-document matches and generated responses for better debugging and demonstration.
+- Considering adding a Streamlit-based UI to visualize query-document matches and generated responses for better debugging and demonstration (Completed by Visalakshi).
 - Would like to eventually compare Gemini vs OpenAI vs local models in a controlled RAG evaluation framework.
