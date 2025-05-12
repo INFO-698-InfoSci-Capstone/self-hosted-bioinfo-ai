@@ -357,3 +357,37 @@ Cosine similarity scores across different models are consistently low (ranging b
 - Would be helpful to test the current FAISS setup against a more interactive retrieval system like RAG or Haystack to assess real-world performance.
 
 - Need to add logging to track document IDs and their matched query results to debug deeper.
+
+### Date:
+April 21 – May 12, 2025
+
+### Number of hours:
+~24–28 hours
+
+- Trying different HuggingFace models for local RAG setup: ~10 hrs  
+- Debugging Gemini API integration for model invocation: ~8 hrs  
+- Optimizing document chunking + FAISS queries for RAG: ~6 hrs  
+- Miscellaneous improvements (logging, file handling, prompt tuning): ~4 hrs  
+
+---
+
+### Rose:
+Made significant progress toward building a fully isolated, local RAG (Retrieval-Augmented Generation) system. Successfully integrated local HuggingFace LLMs and embedding models without relying on external APIs. Was able to retrieve and generate answers from a custom biomedical document set, marking a major step toward offline LLM-based document search.
+
+---
+
+### Bud:
+Next, I want to expand the system by comparing Gemini’s output (once fully debugged) with local LLM generations on identical queries. Also planning to experiment with prompt templates and reranking methods to refine the relevance of the responses and improve the final answer quality.
+
+---
+
+### Thorn:
+Faced persistent issues with the Gemini API calls within the RAG pipeline, especially related to asynchronous handling and query formatting. Some generated outputs were irrelevant or overly generic, possibly due to mismatched prompt structure or context window issues. This slowed down the testing process and required multiple code rewrites.
+
+---
+
+### Additional thoughts:
+
+- Need to finalize a benchmark suite of test queries to evaluate performance across local and API-based RAG systems.
+- Considering adding a Streamlit-based UI to visualize query-document matches and generated responses for better debugging and demonstration.
+- Would like to eventually compare Gemini vs OpenAI vs local models in a controlled RAG evaluation framework.
