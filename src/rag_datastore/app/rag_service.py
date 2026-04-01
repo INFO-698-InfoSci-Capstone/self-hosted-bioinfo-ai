@@ -132,29 +132,45 @@ class HybridRetriever:
         latency_ms = (time.perf_counter() - start) * 1000
         citations = [
             {
-                "source": d.metadata.get("source", "unknown"),
-                "chunk_id": d.metadata.get("chunk_id", -1),
-                "preview": d.page_content[:180],
+                "source": str(d.metadata.get("source", "unknown")),
+                "chunk_id": self._safe_int(d.metadata.get("chunk_id", -1)),
+                "preview": str(d.page_content[:180]),
             }
             for d in selected_docs
         ]
 
+        retrieval_rows = [
+            {
+                "source": str(d.metadata.get("source", "unknown")),
+                "chunk_id": self._safe_int(d.metadata.get("chunk_id", -1)),
+                "score": round(self._safe_float(score), 4),
+            }
+            for d, score in reranked
+        ]
+
         return {
-            "answer": answer,
-            "model": model_name,
-            "confidence": round(confidence, 4),
-            "hallucination_risk": hallucination_risk,
-            "latency_ms": round(latency_ms, 2),
+            "answer": str(answer),
+            "model": str(model_name),
+            "confidence": round(self._safe_float(confidence), 4),
+            "hallucination_risk": str(hallucination_risk),
+            "latency_ms": round(self._safe_float(latency_ms), 2),
             "citations": citations,
-            "retrieval": [
-                {
-                    "source": d.metadata.get("source", "unknown"),
-                    "chunk_id": d.metadata.get("chunk_id", -1),
-                    "score": round(score, 4),
-                }
-                for d, score in reranked
-            ],
+            "retrieval": retrieval_rows,
         }
+
+    @staticmethod
+    def _safe_float(value: Any) -> float:
+        try:
+            return float(value)
+        except (TypeError, ValueError):
+            return 0.0
+
+    @staticmethod
+    def _safe_int(value: Any, default: int = -1) -> int:
+        try:
+            return int(value)
+        except (TypeError, ValueError):
+            return default
 
     def reindex(self) -> Dict[str, Any]:
         self._rebuild_indexes(persist=True)
