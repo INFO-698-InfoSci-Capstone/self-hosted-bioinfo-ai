@@ -11,7 +11,11 @@ from pydantic import BaseModel, Field
 from .rag_service import HybridRetriever, QueryConfig
 
 INDEX_DIR = Path(__file__).resolve().parents[1] / "faiss_index_store"
-retriever = HybridRetriever(index_dir=str(INDEX_DIR), backend=os.getenv("RAG_BACKEND", "faiss"))
+retriever = HybridRetriever(
+    index_dir=str(INDEX_DIR),
+    backend=os.getenv("RAG_BACKEND", "faiss"),
+    reranker_model=os.getenv("RERANKER_MODEL", "cross-encoder/ms-marco-MiniLM-L-6-v2"),
+)
 
 app = FastAPI(title="Bioinformatics RAG API", version="1.0.0")
 
@@ -22,6 +26,7 @@ class QueryRequest(BaseModel):
     vector_weight: float = Field(default=0.6, ge=0.0, le=1.0)
     bm25_weight: float = Field(default=0.4, ge=0.0, le=1.0)
     model: str = Field(default="gpt-4o-mini")
+    use_reranker: bool = Field(default=True)
 
 
 class ReindexResponse(BaseModel):
@@ -71,6 +76,7 @@ def query_knowledge(request: QueryRequest):
             vector_weight=request.vector_weight,
             bm25_weight=request.bm25_weight,
             model=request.model,
+            use_reranker=request.use_reranker,
         )
         return retriever.query(request.question, config=config)
     except ValueError as exc:

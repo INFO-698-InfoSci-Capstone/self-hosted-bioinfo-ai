@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
 import fitz
-from langchain_community.retrievers import BM25Retriever
+from rank_bm25 import BM25Okapi
 from langchain_community.vectorstores import FAISS
 from langchain_core.documents import Document
 from langchain_huggingface import HuggingFaceEmbeddings
@@ -26,6 +26,7 @@ class QueryConfig:
     vector_weight: float = 0.6
     bm25_weight: float = 0.4
     model: str = "gpt-4o-mini"
+    use_reranker: bool = True
 
 
 class ChunkingService:
@@ -84,7 +85,13 @@ class ChunkingService:
 
 
 class HybridRetriever:
-    def __init__(self, index_dir: str, embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2", backend: str = "faiss"):
+    def __init__(
+        self,
+        index_dir: str,
+        embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2",
+        backend: str = "faiss",
+        reranker_model: str = "cross-encoder/ms-marco-MiniLM-L-6-v2",
+    ):
         self.backend = backend
         self.index_dir = Path(index_dir)
         self.index_dir.mkdir(parents=True, exist_ok=True)
@@ -92,8 +99,16 @@ class HybridRetriever:
         self.chunker = ChunkingService(self.embeddings)
         self.docs: List[Document] = []
         self.vector_store: Optional[Any] = None
-        self.bm25: Optional[BM25Retriever] = None
+        self.bm25_index: Optional[BM25Okapi] = None
+        self._reranker_model = reranker_model
+        self._reranker: Optional[Any] = None
         self._load_state()
+
+    def _get_reranker(self) -> Any:
+        if self._reranker is None:
+            from sentence_transformers import CrossEncoder
+            self._reranker = CrossEncoder(self._reranker_model)
+        return self._reranker
 
     def ingest_text(self, text: str, source: str, strategy: str = "sliding") -> int:
         metadata = {"source": source}
@@ -107,24 +122,42 @@ class HybridRetriever:
         return self.ingest_text(text, source=os.path.basename(file_path), strategy=strategy)
 
     def query(self, query: str, config: QueryConfig) -> Dict[str, Any]:
-        if not self.docs or self.vector_store is None or self.bm25 is None:
+        if not self.docs or self.vector_store is None or self.bm25_index is None:
             raise ValueError("No indexed documents found. Call /ingest first.")
 
         start = time.perf_counter()
 
+        # Dense retrieval
         vector_hits = self.vector_store.similarity_search_with_score(query, k=config.top_k)
         vector_norm = self._normalize([(doc, 1.0 / (1.0 + score)) for doc, score in vector_hits])
 
-        self.bm25.k = config.top_k
-        bm25_hits = self.bm25.invoke(query)
-        bm25_norm = self._normalize([(doc, float(config.top_k - idx)) for idx, doc in enumerate(bm25_hits)])
+        # Lexical retrieval with actual BM25 scores
+        tokenized_query = query.lower().split()
+        bm25_raw_scores = self.bm25_index.get_scores(tokenized_query)
+        top_bm25_idx = sorted(range(len(bm25_raw_scores)), key=lambda i: bm25_raw_scores[i], reverse=True)[: config.top_k]
+        bm25_norm = self._normalize([(self.docs[i], float(bm25_raw_scores[i])) for i in top_bm25_idx])
 
+        # Weighted score fusion
         combined = self._fuse(vector_norm, bm25_norm, config.vector_weight, config.bm25_weight)
-        reranked = sorted(combined.values(), key=lambda x: x[1], reverse=True)[: config.top_k]
+        # Take 3× top_k as the reranking candidate pool
+        fusion_candidates = sorted(combined.values(), key=lambda x: x[1], reverse=True)[: config.top_k * 3]
+
+        # Cross-encoder rerank
+        if config.use_reranker and fusion_candidates:
+            reranker = self._get_reranker()
+            pairs = [(query, doc.page_content) for doc, _ in fusion_candidates]
+            ce_scores = reranker.predict(pairs)
+            reranked: List[Tuple[Document, float]] = sorted(
+                ((doc, float(s)) for (doc, _), s in zip(fusion_candidates, ce_scores)),
+                key=lambda x: x[1],
+                reverse=True,
+            )[: config.top_k]
+        else:
+            reranked = [(doc, score) for doc, score in fusion_candidates[: config.top_k]]
 
         selected_docs = [doc for doc, _ in reranked]
         context = "\n\n".join(d.page_content for d in selected_docs)
-        answer, model_name = self._generate_answer(query, selected_docs, context, config.model)
+        answer, model_name = self._generate_answer(query, selected_docs, config.model)
 
         confidence = self._confidence_score(reranked)
         hallucination_risk = self._hallucination_risk(answer, context)
@@ -179,14 +212,17 @@ class HybridRetriever:
     def _rebuild_indexes(self, persist: bool = True) -> None:
         if not self.docs:
             self.vector_store = None
-            self.bm25 = None
+            self.bm25_index = None
             return
 
         if self.backend == "weaviate":
             self.vector_store = self._build_weaviate_store()
         else:
             self.vector_store = FAISS.from_documents(self.docs, self.embeddings)
-        self.bm25 = BM25Retriever.from_documents(self.docs)
+
+        tokenized = [doc.page_content.lower().split() for doc in self.docs]
+        self.bm25_index = BM25Okapi(tokenized)
+
         if persist:
             if self.backend == "faiss" and self.vector_store is not None:
                 self.vector_store.save_local(str(self.index_dir))
@@ -212,14 +248,15 @@ class HybridRetriever:
                 )
             elif self.backend == "weaviate":
                 self.vector_store = self._build_weaviate_store()
-            self.bm25 = BM25Retriever.from_documents(self.docs)
+
+            tokenized = [doc.page_content.lower().split() for doc in self.docs]
+            self.bm25_index = BM25Okapi(tokenized)
 
     def _save_docstore(self) -> None:
         docstore_file = self.index_dir / "documents.jsonl"
         with docstore_file.open("w", encoding="utf-8") as f:
             for doc in self.docs:
                 f.write(json.dumps({"text": doc.page_content, "metadata": doc.metadata}) + "\n")
-
 
     def _build_weaviate_store(self) -> WeaviateVectorStore:
         weaviate_url = os.getenv("WEAVIATE_URL", "http://localhost:8080")
@@ -305,7 +342,7 @@ class HybridRetriever:
             cited_parts.append(f"[{i}] ({source}#chunk-{chunk}) {doc.page_content}")
         return "\n\n".join(cited_parts)
 
-    def _generate_answer(self, query: str, docs: List[Document], context: str, model: str) -> Tuple[str, str]:
+    def _generate_answer(self, query: str, docs: List[Document], model: str) -> Tuple[str, str]:
         api_key = os.getenv("OPENAI_API_KEY")
         if not api_key:
             return (
