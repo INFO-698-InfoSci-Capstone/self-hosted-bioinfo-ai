@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+import asyncio
 import os
 import tempfile
 from pathlib import Path
-from typing import Literal, Optional
+from typing import Literal
 
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from pydantic import BaseModel, Field
@@ -17,6 +18,8 @@ retriever = HybridRetriever(
     reranker_model=os.getenv("RERANKER_MODEL", "cross-encoder/ms-marco-MiniLM-L-6-v2"),
 )
 
+_ingest_lock = asyncio.Lock()
+
 app = FastAPI(title="Bioinformatics RAG API", version="1.0.0")
 
 
@@ -27,6 +30,12 @@ class QueryRequest(BaseModel):
     bm25_weight: float = Field(default=0.4, ge=0.0, le=1.0)
     model: str = Field(default="gpt-4o-mini")
     use_reranker: bool = Field(default=True)
+    relevance_threshold: float = Field(
+        default=0.20,
+        ge=0.0,
+        le=1.0,
+        description="Minimum cosine similarity (cos_sim = 1 - L2²/2) to proceed to OpenAI. Set 0 to disable.",
+    )
 
 
 class ReindexResponse(BaseModel):
@@ -50,7 +59,8 @@ async def ingest_document(
         tmp_path = tmp.name
 
     try:
-        chunk_count = retriever.ingest_file(tmp_path, strategy=chunking_strategy)
+        async with _ingest_lock:
+            chunk_count = retriever.ingest_file(tmp_path, strategy=chunking_strategy)
     except Exception as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     finally:
@@ -66,7 +76,7 @@ async def ingest_document(
 
 
 @app.post("/query")
-def query_knowledge(request: QueryRequest):
+async def query_knowledge(request: QueryRequest):
     if abs((request.vector_weight + request.bm25_weight) - 1.0) > 1e-6:
         raise HTTPException(status_code=400, detail="vector_weight + bm25_weight must equal 1.0")
 
@@ -77,8 +87,9 @@ def query_knowledge(request: QueryRequest):
             bm25_weight=request.bm25_weight,
             model=request.model,
             use_reranker=request.use_reranker,
+            relevance_threshold=request.relevance_threshold,
         )
-        return retriever.query(request.question, config=config)
+        return await retriever.query_async(request.question, config=config)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 

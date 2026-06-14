@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+import asyncio
 import json
 import math
 import os
 import re
 import time
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
@@ -27,11 +29,12 @@ class QueryConfig:
     bm25_weight: float = 0.4
     model: str = "gpt-4o-mini"
     use_reranker: bool = True
+    # Minimum cosine similarity (0–1) required to proceed to OpenAI. Set 0 to disable.
+    # Derived from FAISS L2 distance via cos_sim = 1 - L2²/2 (valid for unit-norm embeddings).
+    relevance_threshold: float = 0.25
 
 
 class ChunkingService:
-    """Supports sliding-window and lightweight semantic chunking."""
-
     def __init__(self, embeddings: HuggingFaceEmbeddings):
         self.embeddings = embeddings
 
@@ -102,6 +105,8 @@ class HybridRetriever:
         self.bm25_index: Optional[BM25Okapi] = None
         self._reranker_model = reranker_model
         self._reranker: Optional[Any] = None
+        self._openai_client: Optional[OpenAI] = None
+        self._executor = ThreadPoolExecutor(max_workers=2)
         self._load_state()
 
     def _get_reranker(self) -> Any:
@@ -110,11 +115,22 @@ class HybridRetriever:
             self._reranker = CrossEncoder(self._reranker_model)
         return self._reranker
 
+    def _get_openai_client(self) -> Optional[OpenAI]:
+        if self._openai_client is None:
+            api_key = os.getenv("OPENAI_API_KEY")
+            if not api_key:
+                return None
+            self._openai_client = OpenAI(api_key=api_key)
+        return self._openai_client
+
+    async def query_async(self, query: str, config: QueryConfig) -> Dict[str, Any]:
+        loop = asyncio.get_running_loop()
+        return await loop.run_in_executor(self._executor, self.query, query, config)
+
     def ingest_text(self, text: str, source: str, strategy: str = "sliding") -> int:
-        metadata = {"source": source}
-        new_docs = self.chunker.chunk(text, strategy=strategy, metadata=metadata)
+        new_docs = self.chunker.chunk(text, strategy=strategy, metadata={"source": source})
         self.docs.extend(new_docs)
-        self._rebuild_indexes(persist=True)
+        self._rebuild_indexes(persist=True, new_docs=new_docs)
         return len(new_docs)
 
     def ingest_file(self, file_path: str, strategy: str = "sliding") -> int:
@@ -127,31 +143,58 @@ class HybridRetriever:
 
         start = time.perf_counter()
 
-        # Dense retrieval
+        # Dense retrieval — scores are FAISS L2 distances (lower = closer).
         vector_hits = self.vector_store.similarity_search_with_score(query, k=config.top_k)
+
+        # Relevance gate: uses the already-loaded local sentence-transformer to decide
+        # whether the query is on-topic before spending any OpenAI tokens.
+        # all-MiniLM-L6-v2 outputs L2-normalized vectors, so cos_sim = 1 - L2²/2.
+        # Clamp to 0 — negative values mean the query is semantically opposite to every chunk.
+        top_similarity = float(max(
+            (max(0.0, 1.0 - (score ** 2) / 2.0) for _, score in vector_hits),
+            default=0.0,
+        ))
+        if config.relevance_threshold > 0 and top_similarity < config.relevance_threshold:
+            return {
+                "answer": (
+                    "Query is outside the scope of the indexed documents. "
+                    f"Best match relevance: {top_similarity:.3f} "
+                    f"(threshold: {config.relevance_threshold})."
+                ),
+                "model": "relevance-gate",
+                "gated_out": True,
+                "relevance_score": round(top_similarity, 4),
+                "confidence": 0.0,
+                "hallucination_risk": "n/a",
+                "latency_ms": round((time.perf_counter() - start) * 1000, 2),
+                "citations": [],
+                "retrieval": [],
+            }
+
         vector_norm = self._normalize([(doc, 1.0 / (1.0 + score)) for doc, score in vector_hits])
 
-        # Lexical retrieval with actual BM25 scores
         tokenized_query = query.lower().split()
         bm25_raw_scores = self.bm25_index.get_scores(tokenized_query)
         top_bm25_idx = sorted(range(len(bm25_raw_scores)), key=lambda i: bm25_raw_scores[i], reverse=True)[: config.top_k]
         bm25_norm = self._normalize([(self.docs[i], float(bm25_raw_scores[i])) for i in top_bm25_idx])
 
-        # Weighted score fusion
         combined = self._fuse(vector_norm, bm25_norm, config.vector_weight, config.bm25_weight)
-        # Take 3× top_k as the reranking candidate pool
+        # 3× top_k gives the reranker a wider candidate pool without excessive inference cost
         fusion_candidates = sorted(combined.values(), key=lambda x: x[1], reverse=True)[: config.top_k * 3]
 
-        # Cross-encoder rerank
         if config.use_reranker and fusion_candidates:
             reranker = self._get_reranker()
             pairs = [(query, doc.page_content) for doc, _ in fusion_candidates]
             ce_scores = reranker.predict(pairs)
-            reranked: List[Tuple[Document, float]] = sorted(
+            reranked_raw: List[Tuple[Document, float]] = sorted(
                 ((doc, float(s)) for (doc, _), s in zip(fusion_candidates, ce_scores)),
                 key=lambda x: x[1],
                 reverse=True,
             )[: config.top_k]
+            raw_vals = [s for _, s in reranked_raw]
+            lo, hi = min(raw_vals), max(raw_vals)
+            denom = (hi - lo) or 1.0
+            reranked: List[Tuple[Document, float]] = [(doc, (s - lo) / denom) for doc, s in reranked_raw]
         else:
             reranked = [(doc, score) for doc, score in fusion_candidates[: config.top_k]]
 
@@ -184,6 +227,8 @@ class HybridRetriever:
         return {
             "answer": str(answer),
             "model": str(model_name),
+            "gated_out": False,
+            "relevance_score": round(top_similarity, 4),
             "confidence": round(self._safe_float(confidence), 4),
             "hallucination_risk": str(hallucination_risk),
             "latency_ms": round(self._safe_float(latency_ms), 2),
@@ -209,7 +254,7 @@ class HybridRetriever:
         self._rebuild_indexes(persist=True)
         return {"status": "ok", "documents": len(self.docs)}
 
-    def _rebuild_indexes(self, persist: bool = True) -> None:
+    def _rebuild_indexes(self, persist: bool = True, new_docs: Optional[List[Document]] = None) -> None:
         if not self.docs:
             self.vector_store = None
             self.bm25_index = None
@@ -217,6 +262,8 @@ class HybridRetriever:
 
         if self.backend == "weaviate":
             self.vector_store = self._build_weaviate_store()
+        elif new_docs and self.vector_store is not None:
+            self.vector_store.add_documents(new_docs)
         else:
             self.vector_store = FAISS.from_documents(self.docs, self.embeddings)
 
@@ -343,8 +390,8 @@ class HybridRetriever:
         return "\n\n".join(cited_parts)
 
     def _generate_answer(self, query: str, docs: List[Document], model: str) -> Tuple[str, str]:
-        api_key = os.getenv("OPENAI_API_KEY")
-        if not api_key:
+        client = self._get_openai_client()
+        if client is None:
             return (
                 "OpenAI API key not configured. Returning grounded extractive summary only:\n\n"
                 + "\n".join(f"- {d.page_content[:220]}..." for d in docs[:3]),
@@ -352,7 +399,6 @@ class HybridRetriever:
             )
 
         cited_context = self._build_cited_context(docs)
-        client = OpenAI(api_key=api_key)
         response = client.chat.completions.create(
             model=model,
             temperature=0.1,
